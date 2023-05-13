@@ -19,7 +19,7 @@ CUISINE_CHOICES = (
 )
 
 
-class Profile (models.Model):
+class Profile(models.Model):
     chef = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(
         upload_to='images/', default='../default_profile_uhncwe'
