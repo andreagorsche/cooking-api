@@ -5,7 +5,7 @@ from .models import Profile
 class ProfileSerializer(serializers.ModelSerializer):
     chef = serializers.ReadOnlyField(source='chef.username')
     is_chef = serializers.SerializerMethodField()
-    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    profile_image = serializers.ReadOnlyField(source='chef.profile.image.url')
     
     def validate_image(self, value):
         if value.size > 1024 * 1024 * 5:
