@@ -14,6 +14,10 @@ class RecipeList(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        serializer_class = PostSerializer
+        permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
         serializer = RecipeSerializer(
             data=request.data, context={'request': request}
         )
