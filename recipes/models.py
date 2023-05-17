@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 
 class Recipe(models.Model):
@@ -10,15 +11,15 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
-     image = models.ImageField(
-        upload_to='images/', default='../kitchen-ga12e7dca3_1920_ch64p1', blank=True
-    cooking_time = models.CharField(blank=True)
+    image = models.ImageField(
+        upload_to='images/', default='../kitchen-ga12e7dca3_1920_ch64p1', blank=True)
+    cooking_time = models.TextField(blank=True)
     ingredients = models.TextField(blank=True)
     description = models.TextField(blank=True)
-    )
 
     class Meta:
         ordering = ['-updated_at']
 
     def __str__(self):
         return f'{self.id} {self.title}'
+
