@@ -1,17 +1,15 @@
 from rest_framework import serializers
 from .models import Recipe
 
+
 class RecipeSerializer(serializers.ModelSerializer):
     chef = serializers.ReadOnlyField(source='chef.username')
     is_chef = serializers.SerializerMethodField()
-    profile_id = serializers.ReadOnlyField(source='chef.profile.id')
-    recipe_image = serializers.ReadOnlyField(source='chef.recipe.image.url')
-
+    profile_image = serializers.ReadOnlyField(source='chef.profile.image.url')
+  
     def validate_image(self, value):
         if value.size > 1024 * 1024 * 5:
-            raise serializers.ValidationError(
-                'Image size larger than 2MB!'
-                )
+            raise serializers.ValidationError('Image size larger than 2MB!')
         if value.image.height > 1024:
             raise serializers.ValidationError(
                 'Image height larger than 1024px!'
@@ -25,10 +23,10 @@ class RecipeSerializer(serializers.ModelSerializer):
     def get_is_chef (self,obj):
         request = self.context['request']
         return request.user == obj.chef
-
+    
     class Meta:
         model = Recipe
         fields = [
-            'id', 'chef', 'created_at', 'updated_at', 'title', 'image', 
-            'cooking_time', 'ingredients', 'description', 'is_chef'
+            'id', 'chef', 'image', 'created_at', 'updated_at', 'title', 'ingredients', 'time_effort'
+            'description', 'is_chef', 'profile_image'
         ]

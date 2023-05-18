@@ -6,7 +6,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     chef = serializers.ReadOnlyField(source='chef.username')
     is_chef = serializers.SerializerMethodField()
     profile_image = serializers.ReadOnlyField(source='chef.profile.image.url')
-    
+  
     def validate_image(self, value):
         if value.size > 1024 * 1024 * 5:
             raise serializers.ValidationError('Image size larger than 2MB!')
@@ -23,10 +23,10 @@ class ProfileSerializer(serializers.ModelSerializer):
     def get_is_chef (self,obj):
         request = self.context['request']
         return request.user == obj.chef
-
+    
     class Meta:
         model = Profile
         fields = [
             'id', 'chef', 'image', 'created_at', 'updated_at', 'favorite_cuisine',
-            'bio', 'is_chef'
+            'bio', 'is_chef', 'profile_image'
         ]

@@ -1,25 +1,28 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-
+from django.contrib.auth.models import User
 
 class Recipe(models.Model):
-    """
-    Recipe model, related to 'chef'(User instance).
-    """
-    chef = models.ForeignKey(User, on_delete=models.CASCADE)
+    chef = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=50, default='american')
+    time_effort = models.CharField(max_length=20, default="")
+    ingredients = models.TextField(default="")
+    description = models.TextField(default="")
     image = models.ImageField(
-        upload_to='images/', default='../kitchen-ga12e7dca3_1920_ch64p1', blank=True)
-    cooking_time = models.TextField(blank=True)
-    ingredients = models.TextField(blank=True)
-    description = models.TextField(blank=True)
+        upload_to='images/', default='../kitchen-ga12e7dca3_1920_ch64p1'
+    )
 
-    class Meta:
+class Meta:
         ordering = ['-updated_at']
 
-    def __str__(self):
-        return f'{self.id} {self.title}'
+def __str__(self):
+    return f"{self.chef}'s recipe"
 
+
+def create_recipe(sender, instance, created, **kwargs):
+    if created:
+        Recipe.objects.create(chef=instance)
+
+post_save.connect(create_recipe, sender=User)

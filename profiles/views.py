@@ -2,8 +2,8 @@ from django.http import Http404
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Profile
-from .serializers import ProfileSerializer
+from profiles.models import Profile
+from profiles.serializers import ProfileSerializer
 from cooking_api.permissions import IsChefOrReadOnly
 
 class ProfileList(APIView):
