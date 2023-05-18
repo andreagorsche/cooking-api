@@ -5,6 +5,7 @@ from .models import Recipe
 class RecipeSerializer(serializers.ModelSerializer):
     chef = serializers.ReadOnlyField(source='chef.username')
     is_chef = serializers.SerializerMethodField()
+    profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='chef.profile.image.url')
   
     def validate_image(self, value):
@@ -27,6 +28,6 @@ class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = [
-            'id', 'chef', 'image', 'created_at', 'updated_at', 'title', 'ingredients', 'time_effort'
+            'id', 'chef', 'profile_id', 'image', 'created_at', 'updated_at', 'title', 'ingredients', 'time_effort',
             'description', 'is_chef', 'profile_image'
         ]
