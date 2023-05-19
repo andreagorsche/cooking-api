@@ -14,6 +14,8 @@ class ProfileList(APIView):
             )
         return Response(serializer.data)
 
+    
+
 class ProfileDetail(APIView):
     serializer_class = ProfileSerializer
     permission_classes = [IsChefOrReadOnly]
