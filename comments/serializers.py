@@ -28,10 +28,11 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = [
-            'id', 'chef', 'profile_id', 'recipe', 'created_at', 'updated_at', 'content', 'is_chef', 'profile_image'
+            'id', 'chef', 'profile_id', 'recipe', 'created_at', 'updated_at', 
+            'content', 'is_chef', 'profile_image', 'recipe',
         ]
 
 class CommentDetailSerializer(CommentSerializer):
-    post = serializers.ReadOnlyField(source='post.id')
+    recipe = serializers.ReadOnlyField(source='recipe.id')
 
   
