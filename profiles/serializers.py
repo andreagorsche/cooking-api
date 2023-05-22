@@ -6,6 +6,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     chef = serializers.ReadOnlyField(source='chef.username')
     is_chef = serializers.SerializerMethodField()
     profile_image = serializers.ReadOnlyField(source='chef.profile.image.url')
+    recipes_count = serializers.ReadOnlyField()
+    followers_count = serializers.ReadOnlyField()
+    following_count = serializers.ReadOnlyField()
   
     def validate_image(self, value):
         if value.size > 1024 * 1024 * 5:
@@ -28,5 +31,5 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = [
             'id', 'chef', 'image', 'created_at', 'updated_at', 'favorite_cuisine',
-            'bio', 'is_chef', 'profile_image'
+            'bio', 'is_chef', 'profile_image', 'recipes_count', 'followers_count', 'following_count'
         ]
