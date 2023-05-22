@@ -17,7 +17,8 @@ class RecipeListViewTests(APITestCase):
     def test_logged_in_user_can_create_recipe(self):
         self.client.login(username='andrea', password='rookiecoder')
         response = self.client.post('/recipes/', {'title': 'recipe title'})
-        self.assertEqual(Recipe.objects.count(), 1)
+        count = Recipe.objects.count()
+        self.assertEqual(count, 1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
     
     def test_user_not_logged_in_cant_create_recipe(self):

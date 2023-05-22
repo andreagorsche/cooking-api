@@ -1,4 +1,4 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters
 from cooking_api.permissions import IsChefOrReadOnly
 from recipes.models import Recipe
 from recipes.serializers import RecipeSerializer
@@ -10,6 +10,14 @@ class RecipeList(generics.ListCreateAPIView):
     serializer_class = RecipeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Recipe.objects.all()
+    filter_backends = [
+        filters.SearchFilter,
+    ]
+    search_fields = [
+        'chef__username',
+        'title',
+        'description'
+    ]
 
     """
     Associate the recipe with the logged in chef
