@@ -6,7 +6,7 @@ class Recipe(models.Model):
     chef = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    title = models.CharField(max_length=50, default='american')
+    title = models.CharField(max_length=50, default='')
     time_effort = models.CharField(max_length=20, default="")
     ingredients = models.TextField(default="")
     description = models.TextField(default="")

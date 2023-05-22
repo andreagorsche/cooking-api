@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
+from cooking_api.permissions import IsChefOrReadOnly
 from recipes.models import Recipe
 from recipes.serializers import RecipeSerializer
-from cooking_api.permissions import IsChefOrReadOnly
 
 class RecipeList(generics.ListCreateAPIView):
     """
@@ -11,13 +11,17 @@ class RecipeList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Recipe.objects.all()
 
-    def perform_create(self, serializer):
-        serializer.save(recipe=self.request.user)
+    """
+    Associate the recipe with the logged in chef
+    """
 
-class RecipeDetail(generics.RetrieveDestroyAPIView):
+    def perform_create(self, serializer):
+        serializer.save(chef=self.request.user)
+
+class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve recipe, if logged in update and delete your own recipe
     """
-    permission_classes = [IsChefOrReadOnly]
     serializer_class = RecipeSerializer
+    permission_classes = [IsChefOrReadOnly]
     queryset = Recipe.objects.all()

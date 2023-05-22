@@ -1,11 +1,11 @@
 from rest_framework import generics, permissions
 from cooking_api.permissions import IsChefOrReadOnly
 from .models import Like
-from .serializers import LikeSerializer
+from likes.serializers import LikeSerializer
 
 class LikeList(generics.ListCreateAPIView):
     """
-    List likes or create a like if logged in.
+    List likes, if logged in  create a like.
     """
     serializer_class = LikeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -16,7 +16,7 @@ class LikeList(generics.ListCreateAPIView):
 
 class LikeDetail(generics.RetrieveDestroyAPIView):
     """
-    Retrieve a like or delete it by id if you own it.
+    Retrieve a like, if you own it delete a like by id.
     """
     permission_classes = [IsChefOrReadOnly]
     serializer_class = LikeSerializer

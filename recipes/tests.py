@@ -17,8 +17,7 @@ class RecipeListViewTests(APITestCase):
     def test_logged_in_user_can_create_recipe(self):
         self.client.login(username='andrea', password='rookiecoder')
         response = self.client.post('/recipes/', {'title': 'recipe title'})
-        count = Recipe.objects.count()
-        self.assertEqual(count, 1)
+        self.assertEqual(Recipe.objects.count(), 1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
     
     def test_user_not_logged_in_cant_create_recipe(self):
@@ -47,9 +46,9 @@ class RecipeDetailViewTests(APITestCase):
 
     def test_user_can_update_own_recipe(self):
         self.client.login(username='carina', password='bambina')
-        response = self.client.put('/recipes/2/', {'title': 'a new title'})
+        response = self.client.put('/recipes/2/', {'title': 'another title'})
         recipe = Recipe.objects.filter(pk=1).first()
-        self.assertEqual(recipe.title, 'a new title')
+        self.assertEqual(response.data['title'], 'another title')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_user_cant_update_another_users_recipe(self):
