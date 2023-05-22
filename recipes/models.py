@@ -14,15 +14,8 @@ class Recipe(models.Model):
         upload_to='images/', default='../kitchen-ga12e7dca3_1920_ch64p1'
     )
 
-class Meta:
+    class Meta:
         ordering = ['-updated_at']
 
-def __str__(self):
-    return f"{self.chef}'s recipe"
-
-
-def create_recipe(sender, instance, created, **kwargs):
-    if created:
-        Recipe.objects.create(chef=instance)
-
-post_save.connect(create_recipe, sender=User)
+    def __str__(self):
+        return f"{self.chef}'s recipe"
