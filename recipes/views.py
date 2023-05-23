@@ -1,4 +1,5 @@
 from rest_framework import generics, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from cooking_api.permissions import IsChefOrReadOnly
 from recipes.models import Recipe
 from recipes.serializers import RecipeSerializer
@@ -12,6 +13,11 @@ class RecipeList(generics.ListCreateAPIView):
     queryset = Recipe.objects.all()
     filter_backends = [
         filters.SearchFilter,
+         DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'chef__profile',
+        'chef__recipe__favorite_cuisine'
     ]
     search_fields = [
         'chef__username',
