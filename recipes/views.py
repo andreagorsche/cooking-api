@@ -19,7 +19,7 @@ class RecipeList(generics.ListCreateAPIView):
         'chef__followed__chef__profile', # user feed
         'likes__chef__profile', # posts a user liked
         'chef__profile', # user posts
-        'chef__recipe__cuisine' # posts filtered by cuisine
+        'cuisine' # posts filtered by cuisine
     ]
     search_fields = [
         'chef__username',
