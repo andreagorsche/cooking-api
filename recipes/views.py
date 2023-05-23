@@ -16,8 +16,10 @@ class RecipeList(generics.ListCreateAPIView):
          DjangoFilterBackend,
     ]
     filterset_fields = [
-        'chef__profile',
-        'chef__recipe__favorite_cuisine'
+        'chef__followed__chef__profile', # user feed
+        'likes__chef__profile', # posts a user liked
+        'chef__profile', # user posts
+        'chef__recipe__cuisine' # posts filtered by cuisine
     ]
     search_fields = [
         'chef__username',
