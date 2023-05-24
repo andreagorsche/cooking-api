@@ -41,6 +41,10 @@ For each app manual tests were written to test the functionality of each app and
 
 
 # Deployment
+
+## Pre-steps
+Before starting the actual deployment steps I:
+
 For the deployment of the cooking_api I took the following steps:
 1. create a database through the Elephant SQL service
 2. create a new app in Heroku
