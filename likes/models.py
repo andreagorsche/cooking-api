@@ -5,7 +5,7 @@ from recipes.models import Recipe
 
 class Like(models.Model):
     """
-    Comment model, related to User and Post
+    Like model, related to User and Post
     """
     chef = models.ForeignKey(User, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='likes')

@@ -2,38 +2,45 @@
 
 Welcome,
 
-This is the Code Institute student template for Codeanywhere. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+This is the cooking_api created to serve the front-end application "cooking around the world". The app itself is a social media platform that allows registered users to post recipes, like and comment recipes of other users and follow other chefs from around the world. The back-end api "cooking-api" is programmed to handle the relevant data of the applications profiles (=chefs), recipes, comments, likes and followers. 
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Codeanywhere and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **March 3rd, 2023**
+# Functionality of the cooking-api
+Similar to a blog api, the cooking-api handles the interaction between user profiles (called chefs) and their posts (called recipes). Logged in chefs can:
 
-## Codeanywhere Reminders
+* retrieve recipes, comments and other chef profiles
+* like and comment on recipes
+* follow other chefs
+* filter recipes by special interest (e.g. type of cuisine)
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere, in the terminal, type:
+In order the create this functionalities the following apps were created:
+* Profiles
+* Recipes
+* Comments
+* Likes
+* Followers
 
-`python3 -m http.server`
+Each app was set up with according 
+* models representing the database fields
+* serializers to "translate" the code into JSON (for smooth data transion between backend and frontend)
+* views for viewability in ListView and DetailListView
+* and urls to connect everything together 
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+# Debugging
+With the set up of each app, a debugging took place. The next app was only installed after the app showed no more bugs. Thereby the focus was on fixing bugs that showed in the terminal or in a the browser preview. Manual Testing (refered to in the next session) took place after all apps were set up and ready for interaction.
+Central debugging issues included:
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere with no-cache, you can use this alias for `python3 -m http.server`.
+##
 
-`http_server`
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+## Testing
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+For each app manual tests were written to test the functionality of each app and go one step deeper into the debugging process.
 
-In Codeanywhere you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+### Testing Recipes App
 
-To log into the Heroku toolbelt CLI:
 
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In Codeanywhere, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
-
----
-
-Happy coding!
+# Deployment
+For the deployment of the cooking_api I took the following steps:
+1. create a database through the Elephant SQL service
+2. create a new app in Heroku
