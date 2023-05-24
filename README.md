@@ -43,7 +43,15 @@ For each app manual tests were written to test the functionality of each app and
 # Deployment
 
 ## Pre-steps
-Before starting the actual deployment steps I:
+Before starting the actual deployment the following pre-steps were taken:
+* set up of the JWT tokens
+* add root route to the api
+* add pagination to all list views
+* crete a default JSON renderer for production
+* create a date and time formatting for all the created_at and updated_at fields
+    * For posts and profiles following the format date/month/year (with the month beeing a  	
+      Locale’s abbreviation)
+    * for comments and likes following the humanized naturaltime because they are more regularly changed or   created (telling us how long ago a comment was created or updated)
 
 For the deployment of the cooking_api I took the following steps:
 1. create a database through the Elephant SQL service
