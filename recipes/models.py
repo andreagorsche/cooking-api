@@ -12,7 +12,7 @@ CUISINE_CHOICES = (
     ('greek','GREEK'),
     ('indian','INDIAN'),
     ('italian','ITALIAN'),
-    ('mediterranean','MEXICAN'),
+    ('mediterranean','Mediterranean'),
     ('mexican','MEXICAN'),
     ('slovak', 'SLOVAK'),
     ('spanish','SPANISH'),
