@@ -2,10 +2,6 @@ from dj_rest_auth.serializers import UserDetailsSerializer
 from rest_framework import serializers
 from profiles.models import Profile as ProfileModel
 
-from dj_rest_auth.serializers import UserDetailsSerializer
-from rest_framework import serializers
-from profiles.models import Profile as ProfileModel
-
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
