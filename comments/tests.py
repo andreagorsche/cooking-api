@@ -10,7 +10,7 @@ class CommentListViewTests(APITestCase):
 
     def test_can_list_comments(self):
         andrea = User.objects.get(username='andrea')
-        Comment.objects.create(chef=andrea, content='andreas comment')
+        Comment.objects.create(owner=andrea, content='andreas comment')
         response = self.client.get('/comments/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     

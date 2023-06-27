@@ -5,7 +5,7 @@ from .models import Like
 
 
 class LikeSerializer(serializers.ModelSerializer):
-    chef = serializers.ReadOnlyField(source='chef.username')
+    owner = serializers.ReadOnlyField(source='owner.username')
     created_at = serializers.SerializerMethodField()
 
     def get_created_at(self, obj):
@@ -14,7 +14,7 @@ class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = [
-            'id', 'chef', 'recipe', 'created_at',
+            'id', 'owner', 'recipe', 'created_at',
         ]
     
     def create(self, validated_data):

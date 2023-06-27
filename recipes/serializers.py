@@ -3,8 +3,8 @@ from .models import Recipe
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    chef = serializers.ReadOnlyField(source='chef.username')
-    is_chef = serializers.SerializerMethodField()
+    owner = serializers.ReadOnlyField(source='owner.username')
+    is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='chef.profile.image.url')
   
@@ -21,13 +21,13 @@ class RecipeSerializer(serializers.ModelSerializer):
             )
         return value
 
-    def get_is_chef (self,obj):
+    def get_is_owner (self,obj):
         request = self.context['request']
-        return request.user == obj.chef
+        return request.user == obj.owner
     
     class Meta:
         model = Recipe
         fields = [
-            'id', 'chef', 'profile_id', 'image', 'created_at', 'updated_at', 'cuisine', 'title', 'ingredients', 'time_effort',
-            'description', 'is_chef', 'profile_image'
+            'id', 'owner', 'profile_id', 'image', 'created_at', 'updated_at', 'cuisine', 'title', 'ingredients', 'time_effort',
+            'description', 'is_owner', 'profile_image'
         ]

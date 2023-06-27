@@ -4,16 +4,16 @@ from .models import Comment
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    chef = serializers.ReadOnlyField(source='chef.username')
-    is_chef = serializers.SerializerMethodField()
+    owner = serializers.ReadOnlyField(source='chef.username')
+    is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='chef.profile.id')
     profile_image = serializers.ReadOnlyField(source='chef.profile.image.url')
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
 
-    def get_is_chef (self,obj):
+    def get_is_owner (self,obj):
         request = self.context['request']
-        return request.user == obj.chef
+        return request.user == obj.owner
     
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
@@ -24,8 +24,8 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = [
-            'id', 'chef', 'profile_id', 'recipe', 'created_at', 'updated_at', 
-            'content', 'is_chef', 'profile_image',
+            'id', 'owner', 'profile_id', 'recipe', 'created_at', 'updated_at', 
+            'content', 'is_owner', 'profile_image',
         ]
 
 class CommentDetailSerializer(CommentSerializer):

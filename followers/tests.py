@@ -16,11 +16,11 @@ class FollowerListViewTests(APITestCase):
     
     def test_logged_in_user_can_follow_another_user(self):
         self.client.login(username='andrea', password='rookiecoder')
-        response = self.client.post('/followers/', {'followed_chef': 'carina'})
+        response = self.client.post('/followers/', {'followed': 'carina'})
         count = Follower.objects.count()
         self.assertEqual(count, 1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
     
     def test_user_not_logged_in_cant_follow_another_user(self):
-        response = self.client.post('/followers/', {'followed_chef': 'carina'})
+        response = self.client.post('/followers/', {'followed': 'carina'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
