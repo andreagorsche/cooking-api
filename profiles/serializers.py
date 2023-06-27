@@ -1,15 +1,16 @@
 from rest_framework import serializers
 from .models import Profile
+from followers.models import Follower
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    chef = serializers.ReadOnlyField(source='chef.username')
-    is_chef = serializers.SerializerMethodField()
-    profile_image = serializers.ReadOnlyField(source='chef.profile.image.url')
+    owner = serializers.ReadOnlyField(source='owner.username')
+    is_owner = serializers.SerializerMethodField()
+    following_id = serializers.SerializerMethodField()
     recipes_count = serializers.ReadOnlyField()
     followers_count = serializers.ReadOnlyField()
     following_count = serializers.ReadOnlyField()
-  
+
     def validate_image(self, value):
         if value.size > 1024 * 1024 * 5:
             raise serializers.ValidationError('Image size larger than 2MB!')
@@ -23,13 +24,24 @@ class ProfileSerializer(serializers.ModelSerializer):
             )
         return value
 
-    def get_is_chef (self,obj):
+    def get_is_owner(self, obj):
         request = self.context['request']
-        return request.user == obj.chef
-    
+        return request.user == obj.owner
+
+    def get_following_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            following = Follower.objects.filter(
+                owner=user, followed=obj.owner
+            ).first()
+            # print(following)
+            return following.id if following else None
+        return None
+
     class Meta:
         model = Profile
         fields = [
-            'id', 'chef', 'image', 'created_at', 'updated_at','bio', 
-            'is_chef', 'profile_image', 'recipes_count', 'followers_count', 'following_count'
+            'id', 'owner', 'created_at', 'updated_at', 'name',
+            'content', 'image', 'is_owner', 'following_id',
+            'recipes_count', 'followers_count', 'following_count',
         ]

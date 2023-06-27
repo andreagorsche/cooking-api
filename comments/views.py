@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions
-from cooking_api.permissions import IsChefOrReadOnly
+from cooking_api.permissions import IsOwnerOrReadOnly
 from .models import Comment
 from .serializers import CommentSerializer, CommentDetailSerializer
 
@@ -18,6 +18,6 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve a comment, if you are logged in update or delete an owned comment
     """
-    permission_classes = [IsChefOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     serializer_class = CommentDetailSerializer
     queryset = Comment.objects.all()

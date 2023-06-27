@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions
-from cooking_api.permissions import IsChefOrReadOnly
+from cooking_api.permissions import IsOwnerOrReadOnly
 from .models import Like
 from likes.serializers import LikeSerializer
 
@@ -18,6 +18,6 @@ class LikeDetail(generics.RetrieveDestroyAPIView):
     """
     Retrieve a like, if you own it delete a like by id.
     """
-    permission_classes = [IsChefOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     serializer_class = LikeSerializer
     queryset = Like.objects.all()

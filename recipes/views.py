@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from cooking_api.permissions import IsChefOrReadOnly
+from cooking_api.permissions import IsOwnerOrReadOnly
 from recipes.models import Recipe
 from recipes.serializers import RecipeSerializer
 
@@ -16,13 +16,13 @@ class RecipeList(generics.ListCreateAPIView):
          DjangoFilterBackend,
     ]
     filterset_fields = [
-        'chef__followed__chef__profile', # user feed
-        'likes__chef__profile', # posts a user liked
-        'chef__profile', # user posts
+        'owner__followed__owner__profile', # user feed
+        'likes__owner__profile', # posts a user liked
+        'owner__profile', # user posts
         'cuisine' # posts filtered by cuisine
     ]
     search_fields = [
-        'chef__username',
+        'owner__username',
         'title',
         'description'
     ]
@@ -39,5 +39,5 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     Retrieve recipe, if logged in update and delete your own recipe
     """
     serializer_class = RecipeSerializer
-    permission_classes = [IsChefOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Recipe.objects.all()
