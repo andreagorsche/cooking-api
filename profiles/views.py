@@ -15,7 +15,7 @@ class ProfileList(generics.ListAPIView):
         recipes_count=Count('owner__recipe', distinct=True),
         followers_count=Count('owner__followed', distinct=True),
         following_count=Count('owner__following', distinct=True)
-    ).order_by('-created_at')
+    ).order_by('-updated_at')
     serializer_class = ProfileSerializer
     filter_backends = [
         filters.OrderingFilter,
