@@ -34,4 +34,4 @@ class Recipe(models.Model):
         ordering = ['-updated_at']
 
     def __str__(self):
-        return f"{self.owner}'s recipe"
+        return f'{self.id} {self.title}'

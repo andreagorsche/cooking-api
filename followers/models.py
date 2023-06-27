@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Follower(models.Model):
     """
     Follower model, related to 'follower' and 'followed'.
-    'follower' is a User that is following another owner.
+    'owner/following' is a User that is following another owner.
     'followed' is a User that is followed by a owner aka 'follower'.
     """
     owner = models.ForeignKey(
