@@ -1,4 +1,4 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+![Welcome](/assets/img/Welcome_Api.png)
 
 Welcome,
 
@@ -34,7 +34,7 @@ Central debugging issues included:
 ### No module profiles found
 After setting up my first app, the profiles app, I had a no module profiles found error.
 
-![NoModule found](/assets/images/debugging/Error_nomodulefound.png)
+![NoModule found](/assets/img/debugging/Error_nomodulefound.png)
 
 The problem was that I wrote 'Profiles' in the installed Apps and the in the urls.py of the app I wrote views.profiles.as_view()) instead of: 
 path('profiles/', views.ProfileList.as_view())
@@ -45,7 +45,7 @@ With the recipes app this error happened to me again. In this case I had by mist
 ### Operational Error at /recipes/
 Because of the error caused by the serializers file with the missing .py file, I decided to delete the app completely and start from scratch (not seeing that .py was missing with the file name). In that new version of the recipes app I added a new field to the models.py file called "time effort". From then on I couldn't get past the operational error at /recipes. 
 
-![Operational error recipes](/assets/images/debugging/OperationalError_TimeEffort.png)
+![Operational error recipes](/assets/img/debugging/OperationalError_TimeEffort.png)
 
 The reason were migration issues. So I had to delete all previous migrations in all the project apps except for the __init__.py file and migrate once more.
 That solved the issue.
@@ -79,59 +79,12 @@ Automated tests were written to go one step deeper into the debugging process. B
 ### Assertion Error with test_logged_in_user_can_create_recipe
 When testing if a logged in user could create a recipe I got an unexpected assertion error: 2 != 1. 
 
-![Assertion error](/assets/images/debugging/assertion.png)
+![Assertion error](/assets/img/debugging/assertion.png)
 
 It took me some time to figure out why 2 recipes were created when there should only be one. 
 The problem was that I had copied the models code of my profiles app into the recipes app and modified the code accordingly. Thereby the createprofile function was adapted into a create recipe function, causing 2 recipes being created in the test altough it should only be one.
 This test turned out to be super useful to find a mistake in my code that I otherwise most likely would have missed.
 
-
-### Testing Recipes App
-test_can_list_posts
-test_logged_in_user_can_create_post
-test_user_not_logged_in_cant_create_post
-test_can_retrieve_post_using_valid_id
-test_cant_retrieve_post_using_invalid_id
-test_user_can_update_own_post
-test_user_cant_update_another_users_post
-
-### Testing Profiles APP
-test_can_list_profiles
-test_can_retrieve_profile_using_valid_id
-test_cant_retrieve_profile_using_invalid_id
-test_user_can_update_own_profile
-test_user_cant_update_another_users_profile
-
-
-### Testing Comments App
-test_can_list_comments
-test_logged_in_user_can_create_comment
-test_user_not_logged_in_cant_create_comment
-test_can_retrieve_comment_using_valid_id
-test_cant_retrieve_comment_using_invalid_id
-test_user_can_update_own_comment
-test_user_cant_update_another_users_comment
-
-### Testing Likes App
-test_can_list_likes
-test_logged_in_user_can_create_like
-test_user_not_logged_in_cant_create_like
-test_can_retrieve_like_using_valid_id
-test_cant_retrieve_like_using_invalid_id
-test_user_can_update_own_like
-test_user_cant_update_another_users_like
-test_user_can’t_like_recipe_twice
-
-
-### Testing Followers App
-test_can_list_followers
-test_logged_in_user_become_a_follower
-test_user_not_logged_in_cant_become_a_follower
-test_can_retrieve_follower_using_valid_id
-test_cant_retrieve_follower_using_invalid_id
-test_user_can_unfollow_other_users
-test_user_cant_unfollow_another_users_following
-test_user_can’t_follow_other_user_twice
 
 # Deployment
 
@@ -149,3 +102,12 @@ Before starting the actual deployment the following pre-steps were taken:
 For the deployment of the cooking_api I took the following steps:
 1. create a database through the Elephant SQL service
 2. create a new app in Heroku
+3. deployed a basic frontend in react
+4. added the config vars in Heroku
+
+## Debugging after deployment
+In the deployed backend I had a 400 error and a 500 error. The 400 error could be resolved by adding the url of the preview into the allowed hosts of settings.py.
+The 500 error was an issue with my permissions set in the backend. This also showed in accessing data issues in the frontend. By changing the field of the Profile model from chef to owner, the logic was more clear to me and I could erase the typos I had created in the permissions and views in the Profile and Recipes App.
+Unfortunetely that whole process took me quite long and also lead to the need of deleting my initially generated database. I set up a new SQL Database with Elephant SQl and created a new sqlite database as well. Thus, my testing cases of the manual testing like created profiles and recipes, likes, followers and comments were erased in the process. 
+Since this debugging cost me so much time and was finished not even 24 hours before deadline, I didn't re-test the backend, but moved right into frontend testing -figuring that if the backend was not working properly I would see it when registering users or posting recipes in the front end as well. 
+When adding new data through the frontend I always checked if the data had arrived in the backend (through console.log in the console and manual testing in the deployed backend).
