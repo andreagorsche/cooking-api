@@ -12,7 +12,7 @@ Similar to a blog api, the cooking-api handles the interaction between user prof
 * follow other chefs
 * filter recipes by special interest (e.g. type of cuisine)
 
-In order the create this functionalities the following apps were created:
+In order the create this functionalities the following apps were created in the Django REST Framework:
 * Profiles
 * Recipes
 * Comments
