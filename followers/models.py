@@ -16,10 +16,16 @@ class Follower(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     
+   
+    """
+    unfollow a Profile
+    """
+    def unfollow(self):
+        self.delete()
+    
     """
     'unique_together' makes sure a user can't the same user twice.
     """
-
     class Meta:
         ordering = ['-created_at']
         unique_together = ['owner', 'followed']
