@@ -85,6 +85,16 @@ It took me some time to figure out why 2 recipes were created when there should 
 The problem was that I had copied the models code of my profiles app into the recipes app and modified the code accordingly. Thereby the createprofile function was adapted into a create recipe function, causing 2 recipes being created in the test altough it should only be one.
 This test turned out to be super useful to find a mistake in my code that I otherwise most likely would have missed.
 
+### Registration did not work properly
+The error went unnoticed in the backend but showed itself when testing the front end registration. After entering the credintials and press register, nothing appearently happened. When pressing the register button again, it stated that the user already exists - implying that some data was indeed sent and saved. In the front end console it showed a 500 error, so I checked the backend and went to https://8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu105.gitpod.io/dj-rest-auth/registration/. I filled out a test registration in the backend and came across the connection refused error:
+
+![connection refused error](/assets/img/debugging/ConnectionRefused.png)
+
+On Stackoverflow the solution presented itself:
+https://stackoverflow.com/questions/72073401/im-trying-to-connect-with-my-heroku-app-and-when-i-enter-my-email-and-password
+https://stackoverflow.com/questions/21563227/django-allauth-example-errno-61-connection-refused
+
+The problem was that upon successful registration Django tried to send a confirmation email but didn't find the according set up in the settings.py file. To fix the issue I inserted a code line that prints mails to the console.
 
 # Deployment
 
