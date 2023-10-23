@@ -50,6 +50,8 @@ JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'cooking_api.serializers.CurrentUserSerializer'
@@ -66,7 +68,7 @@ DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = [
    os.environ.get('ALLOWED_HOST'),
-   '8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu101.gitpod.io',
+   '8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu105.gitpod.io',
 ]
 
 if 'CLIENT_ORIGIN' in os.environ:
