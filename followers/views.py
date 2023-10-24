@@ -14,7 +14,7 @@ class FollowerList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-class FollowerDetail(generics.RetrieveDestroyAPIView):
+class FollowerDetail(generics.RetrieveAPIView):
     """
     If logged in follow a chef
     """
@@ -31,6 +31,6 @@ class UnfollowUserView(generics.DestroyAPIView):
     serializer_class = FollowerSerializer
 
     def get_queryset(self):
-        # Filter the queryset based on the ffollowed_id in the URL
+        # Filter the queryset based on the followed_id in the URL
         followed_id = self.kwargs['followed_id']
         return Follower.objects.filter(id=followed_id)
