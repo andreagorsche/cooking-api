@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions
-from cooking_api.permissions import IsOwnerOrReadOnly
+from cooking_api.permissions import IsOwnerOrReadOnly, IsNotOwnerOrReadOnly
 from .models import Comment
 from .serializers import CommentSerializer, CommentDetailSerializer, MarkCommentInappropriateSerializer
 
@@ -27,17 +27,13 @@ class MarkCommentInappropriate(generics.RetrieveUpdateAPIView):
     Mark a comment as inappropriate.
     """
     serializer_class = MarkCommentInappropriateSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsNotOwnerOrReadOnly]
     queryset = Comment.objects.all()
 
 
     def perform_update(self, serializer):
         comment = self.get_object()
 
-        # Check if the user is not the comment owner
-        if not self.has_object_permission(self.request, self, comment):
-            serializer.instance.is_inappropriate = True
-            serializer.save()
-        else:
-            # PermissionDenied for comment owner 
+        # PermissionDenied for comment owner 
+        if comment.owner == self.request.user:
             raise PermissionDenied("It is not possible to set your own comment to inappropriate. Please delete your comment if you want to remove it.")

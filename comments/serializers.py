@@ -32,7 +32,7 @@ class CommentDetailSerializer(CommentSerializer):
     recipe = serializers.ReadOnlyField(source='recipe.id')
 
 class MarkCommentInappropriateSerializer(serializers.ModelSerializer):
-    content = serializers.ReadOnlyField(source='owner.username')
+    content = serializers.ReadOnlyField()
     owner = serializers.ReadOnlyField(source='owner.username')
     is_inappropriate = serializers.BooleanField() 
 
