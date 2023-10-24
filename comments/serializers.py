@@ -35,10 +35,11 @@ class MarkCommentInappropriateSerializer(serializers.ModelSerializer):
     content = serializers.ReadOnlyField()
     owner = serializers.ReadOnlyField(source='owner.username')
     is_inappropriate = serializers.BooleanField() 
+    marked_inappropriate_by = serializers.ReadOnlyField(source='marked_inappropriate_by.username')
 
     class Meta:
         model = Comment
         fields = [
-            'owner', 'content', 'is_inappropriate',
+            'owner', 'content', 'is_inappropriate', 'marked_inappropriate_by'
             ]
     
