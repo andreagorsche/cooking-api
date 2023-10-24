@@ -20,16 +20,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def get_updated_at(self, obj):
         return naturaltime(obj.updated_at)
-    
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
         
-        # Check if the comment is marked as inappropriate, and exclude it from serialization
-        if instance.is_inappropriate:
-            data['content'] = "This comment has been marked as inappropriate and is hidden."
-        
-        return data
-    
     class Meta:
         model = Comment
         fields = [
@@ -41,18 +32,13 @@ class CommentDetailSerializer(CommentSerializer):
     recipe = serializers.ReadOnlyField(source='recipe.id')
 
 class MarkCommentInappropriateSerializer(serializers.ModelSerializer):
-    is_inappropriate = serializers.ReadOnlyField(source='comments.is_inappropriate')
+    content = serializers.ReadOnlyField(source='owner.username')
     owner = serializers.ReadOnlyField(source='owner.username')
-    is_owner = serializers.SerializerMethodField()
-    profile_id = serializers.ReadOnlyField(source='owner.profile.id')
-    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
-    created_at = serializers.SerializerMethodField()
-    updated_at = serializers.SerializerMethodField()
+    is_inappropriate = serializers.BooleanField() 
 
     class Meta:
-            model = Comment
-            fields = [
-                'id', 'owner', 'profile_id', 'created_at', 'updated_at', 
-                'is_owner', 'profile_image', 'is_inappropriate'
+        model = Comment
+        fields = [
+            'owner', 'content', 'is_inappropriate',
             ]
     
