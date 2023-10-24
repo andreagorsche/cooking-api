@@ -37,3 +37,7 @@ class MarkCommentInappropriate(generics.RetrieveUpdateAPIView):
         # PermissionDenied for comment owner 
         if comment.owner == self.request.user:
             raise PermissionDenied("It is not possible to set your own comment to inappropriate. Please delete your comment if you want to remove it.")
+        
+        serializer.instance.is_inappropriate = True
+        serializer.instance.marked_inappropriate_by = self.request.user
+        serializer.save()
