@@ -26,10 +26,11 @@ class UnfollowUserView(generics.DestroyAPIView):
     """
     If logged in, unfollow a chef.
     """
+    lookup_field = 'followed_id' 
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     serializer_class = FollowerSerializer
 
     def get_queryset(self):
-        # Filter the queryset based on the follower_id in the URL
-        follower_id = self.kwargs['pk']
-        return Follower.objects.filter(id=follower_id)
+        # Filter the queryset based on the ffollowed_id in the URL
+        followed_id = self.kwargs['followed_id']
+        return Follower.objects.filter(id=followed_id)
