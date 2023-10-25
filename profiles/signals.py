@@ -1,6 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Comment, Profile
+from .models import Profile
+from comments.models import Comment
 
 @receiver(post_save, sender=Comment)
 def update_inappropriate_comments_count(sender, instance, **kwargs):
