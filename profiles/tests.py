@@ -48,3 +48,7 @@ class ProfileDetailViewTests(APITestCase):
         response = self.client.put('/profiles/2/', {'bio': 'carinas bio'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)  
 
+from django.test import TestCase
+from django.core import mail
+from django.core.mail import send_mail
+from django.test.utils import override_settings
