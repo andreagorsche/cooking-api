@@ -53,7 +53,7 @@ JWT_AUTH_SAMESITE = 'None'
 
 # Set up for sending emails from this applicaton
 
-if 'DEVELOPMENT' in os.environ:
+if 'DEV' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = "cooking_api@test.com"
 else:
