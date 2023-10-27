@@ -55,7 +55,7 @@ JWT_AUTH_SAMESITE = 'None'
 
 if 'DEV' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = "cooking_api@test.com"
+    DEFAULT_FROM_EMAIL = "andrea.gorsche@gmail.com"
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
@@ -152,7 +152,7 @@ ROOT_URLCONF = 'cooking_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -164,6 +164,11 @@ TEMPLATES = [
         },
     },
 ]
+
+ACCOUNT_EMAIL_TEMPLATES = {
+    'account/email/confirmation_signup_message.txt': 'account/email_register_confirm.txt',
+    'account/email/confirmation_signup_message.html': 'account/email_register_confirm.html',
+}
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
