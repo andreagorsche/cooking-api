@@ -17,16 +17,33 @@ class RecipeList(generics.ListCreateAPIView):
     ]
     filterset_fields = [
         'owner__followed__owner__profile', # user feed
-        'likes__owner__profile', # posts a user liked
         'owner__profile', # user posts
-        'cuisine' # posts filtered by cuisine
+        'cuisine', # posts filtered by cuisine
+        
     ]
     search_fields = [
         'owner__username',
         'title',
-        'description'
+        'description',
+        'ingredients',
     ]
 
+    """
+    Filter specific ingredients
+    """
+    def get_queryset(self):
+        # Check if 'ingredients' query parameter is provided
+        ingredients_var = self.request.query_params.get('ingredients')
+        queryset = Recipe.objects.all()
+
+        if ingredients_var:
+            # Split the ingredients into a list
+            ingredients_list = ingredients_var.split(',')
+            # Filter recipes that contain any of the specified ingredients
+            for ingredient in ingredients_list:
+                queryset = queryset.filter(ingredients__icontains=ingredient)
+        return queryset
+  
     """
     Associate the recipe with the logged in chef
     """
