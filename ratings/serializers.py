@@ -6,7 +6,8 @@ from comments.serializers import CommentSerializer
  
 
 class RatingSerializer(serializers.ModelSerializer):
-    recipe = RecipeSerializer(read_only=True)  # Embed the RecipeSerializer
+    user = serializers.PrimaryKeyRelatedField(read_only=True) 
+    recipe = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all())
     comment = CommentSerializer(read_only=True, required=False)  # Embed the CommentSerializer
 
     class Meta:

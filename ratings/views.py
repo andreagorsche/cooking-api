@@ -15,14 +15,13 @@ class RatingList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         user = self.request.user
         recipe_id = self.request.data.get('recipe')
-        recipe = Recipe.objects.exclude(owner=user).get(pk=recipe_id)  # Fetch recipe not owned by the user
-        comment_data = self.request.data.get('comment', None)
+        stars = self.request.data.get('stars')
 
-        if comment_data:
-            rating = serializer.save(user=user, recipe=recipe)
-            Comment.objects.create(rating=rating, user=user, text=comment_data)
+        if stars:
+            recipe = Recipe.objects.exclude(owner=user).get(pk=recipe_id)  # Fetch recipe not owned by the user
+            serializer.save(user=user, recipe=recipe)
         else:
-            raise serializers.ValidationError("A rating is required to leave a comment.")
+            raise ValidationError("A star rating is required.")
 
         
 class RatingDetail(generics.RetrieveUpdateDestroyAPIView):
