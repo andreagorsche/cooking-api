@@ -6,24 +6,25 @@ from rest_framework import serializers
 from .models import Rating
 
 class RatingSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
-    recipe = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all())
-    comment = serializers.PrimaryKeyRelatedField(queryset=Comment.objects.all(), required=False, allow_null=True)
-    stars = serializers.IntegerField(min_value=0, max_value=5, required=True)
+    recipe = RecipeSerializer(read_only=True)  # Embed the RecipeSerializer
+    comment = CommentSerializer(read_only=True, required=False)  # Embed the CommentSerializer
 
     def create(self, validated_data):
         # Extract 'comment' and 'stars' data
         comment_data = validated_data.pop('comment', None)
-        stars = validated_data.pop('stars')
+        recipe = validated_data.pop('recipe') 
 
         # Create a new Rating object with 'stars'
         rating = Rating.objects.create(stars=stars, **validated_data)
 
-        # If a 'comment' is provided, create a comment associated with the rating
         if comment_data:
-            Comment.objects.create(rating=rating, **comment_data)
+            comment = Comment.objects.create(**comment_data)
+            validated_data['comment'] = comment  # Associate the comment with the rating
 
-        return rating
+        # Since 'recipe' is a required field for a rating
+        validated_data['recipe'] = recipe  # Associate the recipe with the rating
+
+        return Rating.objects.create(**validated_data)
 
     class Meta:
         model = Rating
