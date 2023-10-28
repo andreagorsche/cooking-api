@@ -10,7 +10,7 @@ class RatingSerializer(serializers.ModelSerializer):
     comment = CommentSerializer(read_only=True, required=False)  # Embed the CommentSerializer
 
     def create(self, validated_data):
-        # Extract 'comment' and 'stars' data
+        # Extract 'comment' and 'recipecomment and ' data
         comment_data = validated_data.pop('comment', None)
         recipe = validated_data.pop('recipe') 
 
