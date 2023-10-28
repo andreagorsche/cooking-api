@@ -19,3 +19,6 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = ['id', 'owner', 'recipe_id', 'recipe_title','recipe_description','recipe_ingredients', 'recipe','stars']
 
+class RatingDetailSerializer(RatingSerializer):
+        recipe = serializers.ReadOnlyField(source='recipe.id')
+

@@ -2,7 +2,7 @@ from rest_framework import generics, permissions, filters
 from cooking_api.permissions import IsOwnerOrReadOnly
 from .models import Rating
 from recipes.models import Recipe
-from .serializers import RatingSerializer
+from .serializers import RatingSerializer, RatingDetailSerializer
 
 class RatingList(generics.ListCreateAPIView):
     serializer_class = RatingSerializer
@@ -29,5 +29,5 @@ class RatingDetail(generics.RetrieveUpdateDestroyAPIView):
     Retrieve a rating, if you are logged in update or delete an owned comment
     """
     permission_classes = [IsOwnerOrReadOnly]
-    serializer_class = RatingSerializer
+    serializer_class = RatingDetailSerializer
     queryset = Rating.objects.all()
