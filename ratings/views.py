@@ -28,6 +28,7 @@ class RatingList(generics.ListCreateAPIView):
         else:
             raise ValidationError("A star rating is required.")
 
+
         
 class RatingDetail(generics.RetrieveUpdateDestroyAPIView):
     """
