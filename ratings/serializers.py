@@ -4,12 +4,14 @@ from .models import Rating, Recipe, Comment
 from recipes.serializers import RecipeSerializer
 from comments.serializers import CommentSerializer
  
+from rest_framework import serializers
+from .models import Rating
 
 class RatingSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True) 
-    recipe = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all())
-    comment = CommentSerializer(read_only=True, required=False)  # Embed the CommentSerializer
+    owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    recipe = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), write_only=True)
 
     class Meta:
         model = Rating
-        fields = ['id', 'user', 'recipe', 'comment', 'stars']
+        fields = ['id', 'owner', 'recipe', 'stars']
+

@@ -7,19 +7,22 @@ from .serializers import RatingSerializer
 class RatingList(generics.ListCreateAPIView):
     serializer_class = RatingSerializer
     permission_classes = [permissions.IsAuthenticated]
-
+    
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+    
     def get_queryset(self):
-        user = self.request.user
-        return Recipe.objects.exclude(owner=user)  # Fetch recipes not owned by the user
+        owner = self.request.user
+        return Rating.objects.all()  # Fetch ratings
 
     def perform_create(self, serializer):
-        user = self.request.user
+        owner = self.request.user
         recipe_id = self.request.data.get('recipe')
         stars = self.request.data.get('stars')
 
         if stars:
             recipe = Recipe.objects.exclude(owner=user).get(pk=recipe_id)  # Fetch recipe not owned by the user
-            serializer.save(user=user, recipe=recipe)
+            serializer.save(owner=user, recipe=recipe)
         else:
             raise ValidationError("A star rating is required.")
 
