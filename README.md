@@ -121,3 +121,22 @@ The 500 error was an issue with my permissions set in the backend. This also sho
 Unfortunetely that whole process took me quite long and also lead to the need of deleting my initially generated database. I set up a new SQL Database with Elephant SQl and created a new sqlite database as well. Thus, my testing cases of the manual testing like created profiles and recipes, likes, followers and comments were erased in the process. 
 Since this debugging cost me so much time and was finished not even 24 hours before deadline, I didn't re-test the backend, but moved right into frontend testing -figuring that if the backend was not working properly I would see it when registering users or posting recipes in the front end as well. 
 When adding new data through the frontend I always checked if the data had arrived in the backend (through console.log in the console and manual testing in the deployed backend).
+
+# Code Updates after first assessment
+
+## Feedback on first submission:
+The codebase contains new fields in the Recipe model but the rest of the models are dependent on the walkthrough project. We need to introduce such customizations that are markedly different from that project. 
+Regarding the readme, it contains the testing and deployment sections. However, we need to include specific test cases and testing steps performed for API manual testing and the deployment section should include the stepwise details for creating, configuring, and deploying the backend application on Heroku.
+
+## Added customizations
+
+In order to distinct this project further from the walkthrough project, I took a critical look at the created apps and made significant adaptions, always having good usability and useful features for the frontend app in mind.
+
+* The comments can now be marked as inappropriate by other users. I made sure that users can only mark comments as inappropriate if they are not their own. 
+
+* In the profiles I integrated a counting of inappropriate comment. Users that constantly make inappropriate comments are set to inactive. I set the threshold of inappropriate comments to 5. This logic also requires a profile field that stores if a profile is currently active or not. In order to link the logic of inappropriate comments with the profiles I created signals in the profile app:
+    * checking if the comment is marked as inappropriate
+    * checking if the count exceeds 5 and set the profile as inactive
+    * write an email to the user that the profile was set to inactive
+
+* I deleted the like app. Instead I create a rating app that stores user ratings of 0 to 5 stars for each recipe
