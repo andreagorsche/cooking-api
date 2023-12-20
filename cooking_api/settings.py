@@ -55,7 +55,7 @@ JWT_AUTH_SAMESITE = 'None'
 
 if 'DEV' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = "andrea.gorsche@gmail.com"
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
     EMAIL_USE_TLS = True
