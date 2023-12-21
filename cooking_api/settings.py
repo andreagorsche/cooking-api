@@ -93,7 +93,7 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
         rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
     ]
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu100.gitpod.io', 'https://cookingapi.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu107.gitpod.io', 'https://cookingapi.herokuapp.com']
     
 CORS_ALLOW_CREDENTIALS = True
 
