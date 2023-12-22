@@ -14,6 +14,6 @@ def send_registration_email(sender, instance, created, **kwargs):
         recipient_list = [instance.email]  # Use instance.email to get the email of the newly created user
 
         send_mail(subject, message, from_email, recipient_list)
-
+        
 # Connect the signal
 post_save.connect(send_registration_email, sender=User)
