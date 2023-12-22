@@ -1,8 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include 
 from .views import root_route, logout_route
-from .views import confirm_email
-
 
 urlpatterns = [
     path('', root_route),
@@ -11,7 +9,6 @@ urlpatterns = [
     path('dj-rest-auth/logout/', logout_route), #logout route
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-    path('confirm-email/', confirm_email, name='confirm_email'),
     path('accounts/', include('allauth.urls')),
     path('', include('profiles.urls')),
     path('', include('recipes.urls')),
