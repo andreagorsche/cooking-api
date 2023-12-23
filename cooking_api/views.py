@@ -10,7 +10,18 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from dj_rest_auth.registration.views import RegisterView
+from allauth.account.utils import send_email_confirmation
 
+class CustomRegistrationView(RegisterView):
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        user = self.user
+
+        # Send email confirmation
+        send_email_confirmation(request, user)
+
+        return response
 
 @api_view()
 def root_route(request):
