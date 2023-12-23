@@ -11,27 +11,6 @@ from django.db.models.signals import post_save
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
 
-#  signal for user logged in
-@receiver(user_logged_in)
-def user_logged_in_handler(request, user, **kwargs):
-    print("User logged in:", user.username)
-
-#  signal for sent email confirmation
-@receiver(email_confirmation_sent)
-def email_confirmation_sent_handler(request, email_address, **kwargs):
-    email_confirmation = email_address.emailconfirmation_set.first()
-    if email_confirmation:
-        user = email_confirmation.email_address.user
-        print("Email confirmation sent:", user.username)
-    else:
-        print("No email confirmation found.")
-
-#  signal for handling email confirmation
-@receiver(email_confirmed)
-def email_confirmed_handler(request, email_address, **kwargs):
-    user = email_confirmation.email_address.user
-    print("Email confirmed:", user.username)
-
 
 @api_view()
 def root_route(request):
