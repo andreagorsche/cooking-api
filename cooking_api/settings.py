@@ -113,6 +113,10 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'dj_rest_auth',
     'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'dj_rest_auth.registration',
     'corsheaders',
     'profiles',
@@ -124,10 +128,33 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
+# Account Management
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_USERNAME_MIN_LENGTH = 4
 
 # Redirect URL after successful login
 LOGIN_REDIRECT_URL = '/'
 
+# Social account settings
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+SOCIALACCOUNT_QUERY_EMAIL = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.environ.get('YOUR_GOOGLE_CLIENT_ID'),
+            'secret': os.environ.get('YOUR_GOOGLE_SECRET_KEY'),
+            'key': '',
+        },
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+    },
+}
 
 # Middleware settings
 
@@ -160,9 +187,17 @@ TEMPLATES = [
     },
 ]
 
+ACCOUNT_EMAIL_TEMPLATES = {
+    'account/email/confirmation_signup_message.txt': 'account/email_register_confirm.txt',
+    'account/email/confirmation_signup_message.html': 'account/email_register_confirm.html',
+}
+
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'cooking_api.wsgi.application'
