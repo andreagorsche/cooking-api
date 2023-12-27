@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'username', 'email', 'is_active')
+    list_display = ('id', 'username', 'email', 'is_active')  # Add other fields as needed
     actions = ['delete_selected_users_and_profiles']
 
     def delete_selected_users_and_profiles(self, request, queryset):
@@ -12,14 +12,6 @@ class ProfileAdmin(admin.ModelAdmin):
         """
         for user in queryset:
             profile = Profile.objects.get(owner=user)
-
-            # Check if a token exists before attempting to delete it
-            #try:
-            #    token = TokenModel.objects.get(user=user)
-            #    token.delete()
-            #except TokenModel.DoesNotExist:
-            #    pass
-
             profile.delete()
             user.delete()
 
