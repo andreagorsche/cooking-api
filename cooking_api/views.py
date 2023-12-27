@@ -29,7 +29,7 @@ class CustomRegistrationView(RegisterView):
         # Prepare email content
         subject = "Confirm your registration"
         email_recipient = user.email
-        html_msg = render_to_string("email.html", {'activation_link': activation_link})
+        html_msg = render_to_string("templates/email.html", {'activation_link': activation_link})
         plain_msg = strip_tags(html_msg)
 
         # Send the email
