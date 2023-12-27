@@ -21,9 +21,6 @@ class CustomRegistrationView(RegisterView):
         # Send email confirmation
         send_email_confirmation(request, user)
 
-        # Redirect to the login page
-        return redirect('dj-rest-auth:login')
-
 @api_view()
 def root_route(request):
     return Response({
