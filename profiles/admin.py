@@ -14,11 +14,11 @@ class ProfileAdmin(admin.ModelAdmin):
             profile = Profile.objects.get(owner=user)
 
             # Check if a token exists before attempting to delete it
-            try:
-                token = TokenModel.objects.get(user=user)
-                token.delete()
-            except TokenModel.DoesNotExist:
-                pass
+            #try:
+            #    token = TokenModel.objects.get(user=user)
+            #    token.delete()
+            #except TokenModel.DoesNotExist:
+            #    pass
 
             profile.delete()
             user.delete()
