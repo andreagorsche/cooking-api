@@ -188,8 +188,8 @@ TEMPLATES = [
 ]
 
 ACCOUNT_EMAIL_TEMPLATES = {
-    'account/email/confirmation_signup_message.txt': 'account/email_register_confirm.txt',
-    'account/email/confirmation_signup_message.html': 'account/email_register_confirm.html',
+    'account/email/confirmation_signup_message.txt': 'templates/account/email_register_confirm.txt',
+    'account/email/confirmation_signup_message.html': 'templats/account/email_register_confirm.html',
 }
 
 AUTHENTICATION_BACKENDS = [
