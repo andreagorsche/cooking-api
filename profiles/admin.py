@@ -12,6 +12,10 @@ class ProfileAdmin(admin.ModelAdmin):
         """
         for user in queryset:
             profile = Profile.objects.get(owner=user)
+
+              # Delete tokens associated with the user
+            TokenModel.objects.filter(user=user).delete()
+            
             profile.delete()
             user.delete()
 
