@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'username', 'email', 'is_active')  # Add other fields as needed
+    list_display = ('id', 'username', 'email', 'is_active') 
     actions = ['delete_selected_users_and_profiles']
 
     def delete_selected_users_and_profiles(self, request, queryset):
