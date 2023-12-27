@@ -13,9 +13,13 @@ class ProfileAdmin(admin.ModelAdmin):
         for user in queryset:
             profile = Profile.objects.get(owner=user)
 
-              # Delete tokens associated with the user
-            TokenModel.objects.filter(user=user).delete()
-            
+            # Check if a token exists before attempting to delete it
+            try:
+                token = TokenModel.objects.get(user=user)
+                token.delete()
+            except TokenModel.DoesNotExist:
+                pass
+
             profile.delete()
             user.delete()
 
