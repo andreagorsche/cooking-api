@@ -187,10 +187,10 @@ TEMPLATES = [
     },
 ]
 
-#ACCOUNT_EMAIL_TEMPLATES = {
-#    'account/email/confirmation_signup_message.txt': 'account/email_register_confirm.txt',
-#    'account/email/confirmation_signup_message.html': 'account/email_register_confirm.html',
-#}
+ACCOUNT_EMAIL_TEMPLATES = {
+    'account/email/confirmation_signup_message.txt': 'account/email_register_confirm.txt',
+    'account/email/confirmation_signup_message.html': 'account/email_register_confirm.html',
+}
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
