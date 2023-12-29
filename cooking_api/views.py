@@ -1,26 +1,29 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .settings import (
-    JWT_AUTH_COOKIE, JWT_AUTH_REFRESH_COOKIE, JWT_AUTH_SAMESITE,
-    JWT_AUTH_SECURE,
-)
-from allauth.account.models import EmailConfirmation
-from allauth.account.signals import email_confirmed, email_confirmation_sent, user_logged_in
-from django.dispatch import receiver
-from django.db.models.signals import post_save
-from django.core.mail import send_mail
-from django.contrib.auth.models import User
 from dj_rest_auth.registration.views import RegisterView
 from allauth.account.utils import send_email_confirmation
+from profiles.models import Profile
+from django.conf import settings
+
 
 class CustomRegistrationView(RegisterView):
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
-        user = self.user
+        
+        # Check if 'user' is present in the response data
+        user_data = response.data.get('user', None)
 
-        # Send email confirmation
-        send_email_confirmation(request, user)
+        if user_data:
+            # Retrieve the user instance
+            user = User.objects.get(id=user_data['id'])
 
+            # Create a profile for the user
+            Profile.objects.create(owner=user)
+
+            # Send email confirmation
+            send_email_confirmation(request, user)
+
+        return response
 
 @api_view()
 def root_route(request):
@@ -34,21 +37,21 @@ def root_route(request):
 def logout_route(request):
     response = Response()
     response.set_cookie(
-        key=JWT_AUTH_COOKIE,
+        key=settings.JWT_AUTH_COOKIE,
         value='',
         httponly=True,
         expires='Thu, 01 Jan 1970 00:00:00 GMT',
         max_age=0,
-        samesite=JWT_AUTH_SAMESITE,
-        secure=JWT_AUTH_SECURE,
+        samesite=settings.JWT_AUTH_SAMESITE,
+        secure=settings.JWT_AUTH_SECURE,
     )
     response.set_cookie(
-        key=JWT_AUTH_REFRESH_COOKIE,
+        key=settings.JWT_AUTH_REFRESH_COOKIE,
         value='',
         httponly=True,
         expires='Thu, 01 Jan 1970 00:00:00 GMT',
         max_age=0,
-        samesite=JWT_AUTH_SAMESITE,
-        secure=JWT_AUTH_SECURE,
+        samesite=settings.JWT_AUTH_SAMESITE,
+        secure=settings.JWT_AUTH_SECURE,
     )
     return response
