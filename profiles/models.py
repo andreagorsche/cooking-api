@@ -19,10 +19,14 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.owner}'s profile"
 
+    @property
+    def owner_profile_image(self):
+        return self.owner.profile.image.url if hasattr(self.owner, 'profile') else None
 
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(owner=instance)
 
+ 
 
 post_save.connect(create_profile, sender=User)
