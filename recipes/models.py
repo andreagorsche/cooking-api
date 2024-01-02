@@ -29,6 +29,7 @@ class Recipe(models.Model):
     image = models.ImageField(
         upload_to='images/', default='../kitchen-ga12e7dca3_1920_ch64p1'
     )
+    saved = models.BooleanField(default=False) 
 
     class Meta:
         ordering = ['-updated_at']
