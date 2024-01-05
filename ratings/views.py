@@ -6,7 +6,7 @@ from .serializers import RatingSerializer, RatingDetailSerializer
 
 class RatingList(generics.ListCreateAPIView):
     serializer_class = RatingSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
     def get_queryset(self):
         owner = self.request.user
