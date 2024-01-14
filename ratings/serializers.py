@@ -23,3 +23,15 @@ class RatingSerializer(serializers.ModelSerializer):
         fields = ['id', 'owner', 'recipe_id', 'recipe_title','recipe_description','recipe_ingredients', 'recipe','stars']
 
 
+    def create(self, validated_data):
+            # Check if a rating from the same user for the same recipe already exists
+            existing_rating = Rating.objects.filter(owner=validated_data['owner'], recipe_id=validated_data['recipe_id']).first()
+
+            if existing_rating:
+                # Update the existing rating
+                existing_rating.stars = validated_data['stars']
+                existing_rating.save()
+                return existing_rating
+            else:
+                # Create a new rating
+                return Rating.objects.create(**validated_data)
