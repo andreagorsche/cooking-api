@@ -27,6 +27,11 @@ class RecipeList(generics.ListCreateAPIView):
         'description',
         'ingredients',
     ]
+    
+    """
+    order recipes by created_at
+    """
+    queryset = Recipe.objects.all().order_by('-created_at')
 
     """
     Filter specific ingredients
