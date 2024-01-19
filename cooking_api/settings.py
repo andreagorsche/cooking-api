@@ -28,6 +28,24 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Constant to access cuisine choices from multiple models
+
+CUISINE_CHOICES = (
+    ('american', 'AMERICAN'),
+    ('austrian', 'AUSTRIAN'),
+    ('caribbean', 'CARIBBEAN'),
+    ('chinese', 'CHINESE'),
+    ('french', 'FRENCH'),
+    ('german', 'GERMAN'),
+    ('greek', 'GREEK'),
+    ('indian', 'INDIAN'),
+    ('italian', 'ITALIAN'),
+    ('mediterranean', 'Mediterranean'),
+    ('mexican', 'MEXICAN'),
+    ('slovak', 'SLOVAK'),
+    ('spanish', 'SPANISH'),
+)
+
 # Use sessions in development and tokens in application
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [(
