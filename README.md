@@ -103,7 +103,7 @@ Before starting the actual deployment the following pre-steps were taken:
 * set up of the JWT tokens
 * add root route to the api
 * add pagination to all list views
-* crete a default JSON renderer for production
+* create a default JSON renderer for production
 * create a date and time formatting for all the created_at and updated_at fields
     * For posts and profiles following the format date/month/year (with the month beeing a  	
       Locale’s abbreviation)
