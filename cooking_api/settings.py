@@ -192,13 +192,10 @@ ACCOUNT_EMAIL_TEMPLATES = {
     'account/email/confirmation_signup_message.html': 'templats/account/email_register_confirm.html',
 }
 
-AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
 
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
+AUTHENTICATION_BACKENDS = (
+    ('django.contrib.auth.backends.ModelBackend'),
+)
 
 WSGI_APPLICATION = 'cooking_api.wsgi.application'
 
