@@ -5,7 +5,7 @@ from allauth.account.utils import send_email_confirmation
 from profiles.models import Profile
 from django.conf import settings
 
-'''
+
 class CustomRegistrationView(RegisterView):
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
@@ -24,7 +24,7 @@ class CustomRegistrationView(RegisterView):
             send_email_confirmation(request, user)
 
         return response
-'''
+
 @api_view()
 def root_route(request):
     return Response({

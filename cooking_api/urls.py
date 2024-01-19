@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include 
-from .views import root_route, logout_route
+from .views import root_route, logout_route, CustomRegistrationView
 
 urlpatterns = [
     path('', root_route),
@@ -9,7 +9,7 @@ urlpatterns = [
     path('dj-rest-auth/logout/', logout_route), #logout route
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     #path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-    #path('dj-rest-auth/registration/', CustomRegistrationView.as_view(), name='dj-rest-auth-registration'), 
+    path('dj-rest-auth/registration/', CustomRegistrationView.as_view(), name='dj-rest-auth-registration'), 
     path('accounts/', include('allauth.urls')),   
     path('', include('profiles.urls')),
     path('', include('recipes.urls')),
