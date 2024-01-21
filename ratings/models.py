@@ -12,7 +12,7 @@ class Rating(models.Model):
     stars = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(5)])
 
     def __str__(self):
-    return f"{self.owner.id} rated recipe {self.recipe.id} with {self.stars} stars"
+        return f"{self.owner.username} rated {self.recipe.id} with {self.stars} stars"
 
     class Meta:
         ordering = ['-stars']
