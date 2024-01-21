@@ -19,7 +19,7 @@ class RatingSerializer(serializers.ModelSerializer):
         owner = self.context['request'].user
         recipe_id = self.context['recipe_id'] 
 
-        existing_rating = Rating.objects.filter(owner=owner, recipe=recipe).first()
+        existing_rating = Rating.objects.filter(owner=owner, recipe_id=recipe_id).first()
 
         if existing_rating:
             existing_rating.stars = validated_data['stars']
