@@ -13,7 +13,7 @@ class RatingList(generics.ListCreateAPIView):
         owner = self.request.user
         return Rating.objects.select_related('recipe').all() # Fetch ratings
 
-     def perform_create(self, serializer):
+    def perform_create(self, serializer):
         owner = self.request.user
         recipe_id = self.request.data.get('recipe')
         stars = self.request.data.get('stars')
