@@ -13,7 +13,7 @@ class Recipe(models.Model):
     ingredients = models.TextField(default="")
     description = models.TextField(default="")
     image = models.ImageField(
-        upload_to='images/', default='../kitchen-ga12e7dca3_1920_ch64p1'
+        upload_to='images/', default=None
     )
     saved = models.BooleanField(default=False) 
 

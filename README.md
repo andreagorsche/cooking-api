@@ -2,7 +2,7 @@
 
 Welcome,
 
-This is the cooking_api created to serve the front-end application "cooking around the world". The app itself is a social media platform that allows registered users to post recipes, like and comment recipes of other users and follow other chefs from around the world. The back-end api "cooking-api" is programmed to handle the relevant data of the applications profiles (=chefs), recipes, comments, likes and followers. 
+This is the cooking_api created to serve the front-end application "cooking around the world". The app itself is a social media platform that allows registered users to post recipes, rate and comment recipes of other users and follow other chefs from around the world. The back-end api "cooking-api" is programmed to handle the relevant data of the applications profiles (=chefs), recipes, comments, rating and followers. 
 
 # Functionality of the cooking-api
 Similar to a blog api, the cooking-api handles the interaction between user profiles (called chefs) and their posts (called recipes). Logged in chefs can:
