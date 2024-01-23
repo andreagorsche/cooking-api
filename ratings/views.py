@@ -34,4 +34,13 @@ class RatingDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Rating.objects.all()
 
     def perform_update(self, serializer):
-        rating = self.get_object()
+        # the user needs to be the owner of the rating
+        if serializer.instance.owner != self.request.user:
+            raise PermissionDenied("You don't have permission to update this rating.")
+        
+        # 'stars' is updated
+        stars = self.request.data.get('stars')
+        if stars is not None:
+            serializer.save(stars=stars)
+        else:
+            raise ValidationError("Stars field is required for update.")
