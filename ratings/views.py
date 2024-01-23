@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions, filters
-from cooking_api.permissions import IsNotOwnerOrReadOnly
+from cooking_api.permissions import IsOwnerOrReadOnly
 from .models import Rating
 from recipes.models import Recipe
 from .serializers import RatingSerializer
@@ -7,7 +7,7 @@ from rest_framework.exceptions import ValidationError
 
 class RatingList(generics.ListCreateAPIView):
     serializer_class = RatingSerializer
-    permission_classes = [IsNotOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     
     def get_queryset(self):
         owner = self.request.user
@@ -29,6 +29,9 @@ class RatingDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve a rating, if you are logged in update an owned rating
     """
-    permission_classes = [IsNotOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     serializer_class = RatingSerializer
     queryset = Rating.objects.all()
+
+    def perform_update(self, serializer):
+        rating = self.get_object()

@@ -4,7 +4,6 @@ from .models import Rating, Recipe
 
 class RatingSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    recipe = serializers.ReadOnlyField() 
     stars = serializers.IntegerField(
         validators=[
             MinValueValidator(1, message="Rating should be at least 1."),
@@ -15,4 +14,3 @@ class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
         fields = ['id', 'owner', 'recipe', 'stars']  
-
