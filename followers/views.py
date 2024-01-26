@@ -28,7 +28,8 @@ class UnfollowUserView(generics.DestroyAPIView):
     """
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     serializer_class = FollowerSerializer
+    lookup_field = 'followed_id'
 
     def get_queryset(self):
     # Filter the queryset based on the authenticated user and the followed user
-        return Follower.objects.filter(owner=self.request.user, followed_id=self.kwargs['extractedFollowedId'])
+        return Follower.objects.filter(owner=self.request.user, followed_id=self.kwargs['followed_id'])
