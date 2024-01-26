@@ -30,5 +30,5 @@ class UnfollowUserView(generics.DestroyAPIView):
     serializer_class = FollowerSerializer
 
     def get_queryset(self):
-        # Filter the queryset based on the authenticated user and the followed user
-        return Follower.objects.filter(owner=self.request.user, followed_id=self.kwargs['followed_id'])
+    # Filter the queryset based on the authenticated user and the followed user
+    return Follower.objects.filter(owner=self.request.user, followed_id=self.kwargs['extractedFollowedId'])
