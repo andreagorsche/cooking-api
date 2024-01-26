@@ -16,7 +16,7 @@ class Follower(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     
-       
+    
     """
     'unique_together' makes sure a user can't the same user twice.
     """
