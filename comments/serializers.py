@@ -31,7 +31,7 @@ class CommentSerializer(serializers.ModelSerializer):
         ]
 
 class CommentDetailSerializer(CommentSerializer):
-    recipe_id = serializers.ReadOnlyField(source='recipe.id')
+    recipe = serializers.ReadOnlyField(source='recipe.id')
 
 class MarkCommentInappropriateSerializer(serializers.ModelSerializer):
     comment_id = serializers.IntegerField()  # Add this field to identify the comment

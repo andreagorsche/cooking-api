@@ -13,7 +13,7 @@ class CommentList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = Comment.objects.all()
-        recipe_id = self.request.query_params.get('recipe_id')
+        recipe_id = self.request.query_params.get('recipe')
         if recipe_id:
             queryset = queryset.filter(recipe_id=recipe_id)
         return queryset
