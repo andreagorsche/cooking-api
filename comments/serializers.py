@@ -6,6 +6,7 @@ from .models import Comment
 class CommentSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
+    recipe_id = serializers.ReadOnlyField(source='recipe.id')
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     created_at = serializers.SerializerMethodField()
@@ -25,12 +26,12 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = [
-            'id', 'owner', 'profile_id', 'recipe', 'created_at', 'updated_at', 
+            'id', 'owner', 'profile_id', 'recipe_id', 'created_at', 'updated_at', 
             'content', 'is_owner', 'profile_image','is_inappropriate',
         ]
 
 class CommentDetailSerializer(CommentSerializer):
-    recipe = serializers.ReadOnlyField(source='recipe.id')
+    recipe_id = serializers.ReadOnlyField(source='recipe.id')
 
 class MarkCommentInappropriateSerializer(serializers.ModelSerializer):
     comment_id = serializers.IntegerField()  # Add this field to identify the comment
