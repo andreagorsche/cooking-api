@@ -11,6 +11,13 @@ class CommentList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Comment.objects.all()
 
+    def get_queryset(self):
+        queryset = Comment.objects.all()
+        recipe_id = self.request.query_params.get('recipe_id')
+        if recipe_id:
+            queryset = queryset.filter(recipe_id=recipe_id)
+        return queryset
+
     def perform_create(self, serializer):
         # Get the recipe_id from the request data
         owner = self.request.user
