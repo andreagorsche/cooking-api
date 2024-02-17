@@ -12,7 +12,18 @@ class CommentList(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        # Get the recipe_id from the request data
+        owner = self.request.user
+        recipe_id = self.request.data.get('recipe')
+        content = self.request.data.get('content')        
+        # Check if recipe_id exists
+        if recipe_id:
+            # Save the comment with the associated recipe_id
+            serializer.save(owner=self.request.user, recipe_id=recipe_id)
+            return
+
+        # If recipe_id is not provided, return an error response
+        return Response({"error": "recipe_id is required"}, status=status.HTTP_400_BAD_REQUEST)
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     """

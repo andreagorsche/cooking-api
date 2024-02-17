@@ -80,11 +80,11 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
    os.environ.get('ALLOWED_HOST'),
-   '8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu107.gitpod.io',
+   '8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu108.gitpod.io',
    'cookingapi.herokuapp.com',
 ]
 
@@ -98,7 +98,7 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
         rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
     ]
 
-CSRF_TRUSTED_ORIGINS = ['8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu107.gitpod.io', 'https://cookingapi.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['https://8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu108.gitpod.io/', 'https://cookingapi.herokuapp.com']
     
 CORS_ALLOW_CREDENTIALS = True
 

@@ -1,6 +1,6 @@
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
-from .models import Comment
+from .models import Comment, Recipe
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -26,7 +26,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = [
-            'id', 'owner', 'profile_id', 'recipe_id', 'created_at', 'updated_at', 
+            'id', 'owner', 'profile_id', 'recipe', 'recipe_id', 'created_at', 'updated_at', 
             'content', 'is_owner', 'profile_image','is_inappropriate',
         ]
 
