@@ -34,9 +34,9 @@ class CommentDetailSerializer(CommentSerializer):
     recipe = serializers.ReadOnlyField(source='recipe.id')
 
 class MarkCommentInappropriateSerializer(serializers.ModelSerializer):
-    comment_id = serializers.IntegerField()  # Add this field to identify the comment
+    id = serializers.ReadOnlyField(source='comment.id')
     is_inappropriate = serializers.BooleanField() 
 
     class Meta:
         model = Comment
-        fields = ['comment_id', 'is_inappropriate']
+        fields = ['id', 'is_inappropriate']

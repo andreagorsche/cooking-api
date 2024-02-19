@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from .models import Profile
 from comments.models import Comment
 import os
+from django.core.mail import send_mail
 
 if os.path.exists('env.py'):
     import env

@@ -2,6 +2,9 @@ from rest_framework import generics, permissions
 from cooking_api.permissions import IsOwnerOrReadOnly, IsNotOwnerOrReadOnly
 from .models import Comment
 from .serializers import CommentSerializer, CommentDetailSerializer, MarkCommentInappropriateSerializer
+from rest_framework.response import Response
+from rest_framework import status
+
 
 class CommentList(generics.ListCreateAPIView):
     """
@@ -48,9 +51,7 @@ class MarkCommentInappropriate(generics.RetrieveUpdateAPIView):
     permission_classes = [IsNotOwnerOrReadOnly]
     queryset = Comment.objects.all()
 
-
     def perform_update(self, serializer, **kwargs):
-        comment_id = kwargs.get('comment_id')  # Get the comment ID from the URL
         comment = self.get_object()
 
         # PermissionDenied for comment owner 
