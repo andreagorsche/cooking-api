@@ -49,7 +49,8 @@ class MarkCommentInappropriate(generics.RetrieveUpdateAPIView):
     queryset = Comment.objects.all()
 
 
-    def perform_update(self, serializer):
+    def perform_update(self, serializer, **kwargs):
+        comment_id = kwargs.get('comment_id')  # Get the comment ID from the URL
         comment = self.get_object()
 
         # PermissionDenied for comment owner 
@@ -59,3 +60,5 @@ class MarkCommentInappropriate(generics.RetrieveUpdateAPIView):
         serializer.instance.is_inappropriate = True
         serializer.instance.marked_inappropriate_by = self.request.user
         serializer.save()
+
+        return Response({"message": "Comment marked as inappropriate."}, status=status.HTTP_200_OK)
