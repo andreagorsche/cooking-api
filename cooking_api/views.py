@@ -6,6 +6,7 @@ from profiles.models import Profile
 from django.conf import settings
 from django.shortcuts import redirect
 from allauth.account.views import ConfirmEmailView
+from django.views.decorators.csrf import csrf_exempt
 
 
 class CustomRegistrationView(RegisterView):
@@ -28,6 +29,7 @@ class CustomRegistrationView(RegisterView):
         return response
 
 class CustomEmailConfirmationView(ConfirmEmailView):
+    @csrf_exempt
     def get(self, *args, **kwargs):
         response = super().get(*args, **kwargs)
         # Generate the frontend confirmation URL with the confirmation key
