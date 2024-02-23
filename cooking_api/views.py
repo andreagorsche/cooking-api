@@ -4,6 +4,8 @@ from dj_rest_auth.registration.views import RegisterView
 from allauth.account.utils import send_email_confirmation
 from profiles.models import Profile
 from django.conf import settings
+from django.shortcuts import redirect
+from allauth.account.views import ConfirmEmailView
 
 
 class CustomRegistrationView(RegisterView):
@@ -28,9 +30,11 @@ class CustomRegistrationView(RegisterView):
 class CustomEmailConfirmationView(ConfirmEmailView):
     def get(self, *args, **kwargs):
         response = super().get(*args, **kwargs)
+        # Generate the frontend confirmation URL with the confirmation key
+        confirmation_key = response.context_data['key']
+        frontend_confirmation_url = f"{settings.FRONTEND_CONFIRMATION_URL}?key={confirmation_key}"
         # Redirect to frontend React application after email confirmation
-        redirect_url = settings.FRONTEND_CONFIRMATION_URL  # Using the environment variable
-        return redirect(redirect_url)
+        return redirect(frontend_confirmation_url)
 
 @api_view()
 def root_route(request):
