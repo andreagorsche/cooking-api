@@ -72,6 +72,11 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'cooking_api.serializers.CurrentUserSerializer'
 }
 
+#Adapter for custom tokens - email verfication
+
+ACCOUNT_ADAPTER = 'API.adapter.DefaultAccountAdapterCustom'
+URL_FRONT = 'http://localhost:8000/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/

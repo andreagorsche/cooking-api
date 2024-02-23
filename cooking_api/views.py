@@ -7,6 +7,10 @@ from django.conf import settings
 from django.shortcuts import redirect
 from allauth.account.views import ConfirmEmailView
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import get_user_model
+from rest_framework import status
+from rest_framework.views import APIView
+from django.http import HttpResponse
 
 
 class CustomRegistrationView(RegisterView):
@@ -28,15 +32,11 @@ class CustomRegistrationView(RegisterView):
 
         return response
 
-class CustomEmailConfirmationView(ConfirmEmailView):
-    @csrf_exempt
-    def get(self, *args, **kwargs):
-        response = super().get(*args, **kwargs)
-        # Generate the frontend confirmation URL with the confirmation key
-        confirmation_key = response.context_data['key']
-        frontend_confirmation_url = f"{settings.FRONTEND_CONFIRMATION_URL}?key={confirmation_key}"
-        # Redirect to frontend React application after email confirmation
-        return redirect(frontend_confirmation_url)
+
+def confirm_email(request, key):
+    #  logic to confirm the email using the key?
+    return HttpResponse("Email confirmed successfully!")
+
 
 @api_view()
 def root_route(request):
