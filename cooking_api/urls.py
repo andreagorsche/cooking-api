@@ -7,7 +7,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dj-rest-auth/logout/', logout_route), #logout route
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
-    path('dj-rest-auth/registration/', CustomRegistrationView.as_view(), name='dj-rest-auth-registration'), 
+    path('dj-rest-auth/registration/', CustomRegistrationView.as_view(), name='dj-rest-auth-registration'),
+    path('confirm-email/<str:key>/', CustomEmailConfirmationView.as_view(), name='custom_email_confirmation'),
     path('accounts/', include('allauth.urls')),   
     path('', include('profiles.urls')),
     path('', include('recipes.urls')),

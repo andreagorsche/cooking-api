@@ -25,6 +25,13 @@ class CustomRegistrationView(RegisterView):
 
         return response
 
+class CustomEmailConfirmationView(ConfirmEmailView):
+    def get(self, *args, **kwargs):
+        response = super().get(*args, **kwargs)
+        # Redirect to frontend React application after email confirmation
+        redirect_url = settings.FRONTEND_CONFIRMATION_URL  # Using the environment variable
+        return redirect(redirect_url)
+
 @api_view()
 def root_route(request):
     return Response({
