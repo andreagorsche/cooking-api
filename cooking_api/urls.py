@@ -10,9 +10,7 @@ urlpatterns = [
     path('dj-rest-auth/logout/', logout_route), #logout route
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', CustomRegistrationView.as_view(), name='dj-rest-auth-registration'),
-    #path('confirm-email/<str:key>/', CustomEmailConfirmationView.as_view(), name='custom_email_confirmation'),
-    url(  # Use url() to include the specific pattern
-        r'^verify-email/(?P<key>\w+)/$',  # Pattern for verify-email
+    url(r'^verify-email/(?P<key>\w+)/$',  # Pattern for verify-email
         confirm_email,
         name="account_confirm_email"
     ),

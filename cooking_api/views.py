@@ -9,8 +9,8 @@ from allauth.account.views import ConfirmEmailView
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from rest_framework import status
-from rest_framework.views import APIView
 from django.http import HttpResponse
+
 
 
 class CustomRegistrationView(RegisterView):
@@ -27,15 +27,21 @@ class CustomRegistrationView(RegisterView):
             # Create a profile for the user
             Profile.objects.create(owner=user)
 
-            # Send email confirmation
-            send_email_confirmation(request, user)
-
         return response
 
 
 def confirm_email(request, key):
-    #  logic to confirm the email using the key?
-    return HttpResponse("Email confirmed successfully!")
+    try:
+        email_confirmation = EmailConfirmation.objects.get(key=key)
+    except EmailConfirmation.DoesNotExist:
+        return HttpResponseBadRequest("Invalid activation link")
+
+    # Mark the email as verified
+    email_confirmation.confirm(request)
+
+    # Redirect to your desired URL after email verification
+    return redirect(settings.URL_FRONT + '/success')
+
 
 
 @api_view()

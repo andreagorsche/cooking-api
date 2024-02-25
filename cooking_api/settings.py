@@ -74,9 +74,11 @@ REST_AUTH_SERIALIZERS = {
 
 #Adapter for custom tokens - email verfication
 
-ACCOUNT_ADAPTER = 'API.adapter.DefaultAccountAdapterCustom'
-URL_FRONT = 'http://localhost:8000/'
-
+ACCOUNT_ADAPTER = 'cooking_api.adapter.DefaultAccountAdapterCustom'
+if 'DEV' in os.environ:
+    URL_FRONT = 'http://localhost:3000/'
+else:
+    URL_FRONT = 'https://cookingaroundtheworld.herokuapp.com/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
