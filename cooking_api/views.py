@@ -40,7 +40,7 @@ def confirm_email(request, key):
     email_confirmation.confirm(request)
 
     # Redirect to your desired URL after email verification
-    return redirect(settings.URL_FRONT + '/success')
+    #return redirect(settings.URL_FRONT + '/success')
 
 
 
