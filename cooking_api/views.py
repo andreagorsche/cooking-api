@@ -39,10 +39,6 @@ def confirm_email(request, key):
     # Mark the email as verified
     email_confirmation.confirm(request)
 
-    # Redirect to your desired URL after email verification
-    #return redirect(settings.URL_FRONT + '/success')
-
-
 
 @api_view()
 def root_route(request):
