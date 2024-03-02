@@ -76,7 +76,7 @@ REST_AUTH_SERIALIZERS = {
 
 ACCOUNT_ADAPTER = 'cooking_api.adapter.DefaultAccountAdapterCustom'
 if 'DEV' in os.environ:
-    URL_FRONT = 'http://localhost:3000/'
+    URL_FRONT = 'https://3000-andreagorsc-cookaroundt-9zz4ntp0gje.ws-eu108.gitpod.io/'
 else:
     URL_FRONT = 'https://cookingaroundtheworld.herokuapp.com/'
 
