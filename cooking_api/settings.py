@@ -181,6 +181,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Allowed CORS Headers 
+
+CORS_ALLOWED_HEADERS = [
+    'x-frontend-environment',
+]
+
 ROOT_URLCONF = 'cooking_api.urls'
 
 TEMPLATES = [
