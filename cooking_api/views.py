@@ -10,7 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from django.http import HttpResponse
-
+from allauth.account.models import EmailConfirmation
+from django.http import HttpResponseBadRequest
 
 
 class CustomRegistrationView(RegisterView):
@@ -29,8 +30,15 @@ class CustomRegistrationView(RegisterView):
 
         return response
 
+def get_frontend_url(request: HttpRequest) -> str:
+    if request.headers.get('X-Frontend-Environment') == 'development':
+        return settings.DEV_FRONTEND_URL
+    else:
+        return settings.PROD_FRONTEND_URL
+        
 
 def confirm_email(request, key):
+    # Use EmailConfirmation Model 
     try:
         email_confirmation = EmailConfirmation.objects.get(key=key)
     except EmailConfirmation.DoesNotExist:
@@ -39,6 +47,10 @@ def confirm_email(request, key):
     # Mark the email as verified
     email_confirmation.confirm(request)
 
+     # Redirect to frontend after confirmation
+    return redirect(frontend_url)
+
+    return HttpResponse("Email verified successfully.")
 
 @api_view()
 def root_route(request):
