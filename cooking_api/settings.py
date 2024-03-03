@@ -187,6 +187,10 @@ CORS_ALLOWED_HEADERS = [
     'x-frontend-environment',
 ]
 
+CORS_ORIGIN_WHITELIST = [
+    'https://3000-andreagorsc-cookaroundt-9zz4ntp0gje.ws-eu108.gitpod.io',
+]
+
 ROOT_URLCONF = 'cooking_api.urls'
 
 TEMPLATES = [
