@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from django.http import HttpResponse
 from allauth.account.models import EmailConfirmation
-from django.http import HttpResponseBadRequest
+from django.http import HttpRequest
 
 
 class CustomRegistrationView(RegisterView):
