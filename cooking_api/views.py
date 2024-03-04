@@ -47,6 +47,9 @@ def confirm_email(request, key):
     # Mark the email as verified
     email_confirmation.confirm(request)
 
+    # call the get frontend_url
+    frontend_url = get_frontend_url(request)
+
      # Redirect to frontend after confirmation
     return redirect(frontend_url)
 
