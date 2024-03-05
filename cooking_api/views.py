@@ -12,6 +12,10 @@ from rest_framework import status
 from django.http import HttpResponse
 from allauth.account.models import EmailConfirmation
 from django.http import HttpRequest
+from django.contrib import messages
+from allauth.account.models import EmailAddress
+from django.http import JsonResponse
+
 
 
 class CustomRegistrationView(RegisterView):
@@ -29,31 +33,20 @@ class CustomRegistrationView(RegisterView):
             Profile.objects.create(owner=user)
 
         return response
+    
 
-def get_frontend_url(request: HttpRequest) -> str:
-    if request.headers.get('X-Frontend-Environment') == 'development':
-        return settings.DEV_FRONTEND_URL
-    else:
-        return settings.PROD_FRONTEND_URL
-        
-
-def confirm_email(request, key):
-    # Use EmailConfirmation Model 
+def verify_email(request, key):
     try:
-        email_confirmation = EmailConfirmation.objects.get(key=key)
-    except EmailConfirmation.DoesNotExist:
-        return HttpResponseBadRequest("Invalid activation link")
+        email_address = EmailAddress.objects.get(confirmation_key=key)
+        if not email_address.verified:
+            email_address.verified = True
+            email_address.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'message': 'Email address already verified.'})
+    except EmailAddress.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Invalid verification key.'})
 
-    # Mark the email as verified
-    email_confirmation.confirm(request)
-
-    # call the get frontend_url
-    frontend_url = get_frontend_url(request)
-
-     # Redirect to frontend after confirmation
-    return redirect(frontend_url)
-
-    return HttpResponse("Email verified successfully.")
 
 @api_view()
 def root_route(request):

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include 
 from .views import root_route, logout_route, CustomRegistrationView
 from django.conf.urls import url
-from .views import confirm_email
+from .views import verify_email
 
 urlpatterns = [
     path('', root_route),
@@ -11,7 +11,7 @@ urlpatterns = [
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', CustomRegistrationView.as_view(), name='dj-rest-auth-registration'),
     url(r'^verify-email/(?P<key>\w+)/$',  # Pattern for verify-email
-        confirm_email,
+        verify_email,
         name="account_confirm_email"
     ),
     path('accounts/', include('allauth.urls')),   
