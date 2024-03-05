@@ -75,9 +75,6 @@ REST_AUTH_SERIALIZERS = {
 #Adapter for custom tokens - email verfication
 
 ACCOUNT_ADAPTER = 'cooking_api.adapter.DefaultAccountAdapterCustom'
-if os.environ.get('X-Frontend-Environment') == 'development':
-    URL_FRONT = 'https://3000-andreagorsc-cookaroundt-9zz4ntp0gje.ws-eu108.gitpod.io/'
-else:
     URL_FRONT = 'https://cookingaroundtheworld.herokuapp.com/'
 
 # Quick-start development settings - unsuitable for production
