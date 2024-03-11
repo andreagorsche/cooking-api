@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.urls import path, include 
 from .views import root_route, logout_route, CustomRegistrationView
 from django.conf.urls import url
-from .views import VerifyEmailView
 
 urlpatterns = [
     path('', root_route),
