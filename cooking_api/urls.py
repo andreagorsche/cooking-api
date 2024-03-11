@@ -10,7 +10,6 @@ urlpatterns = [
     path('dj-rest-auth/logout/', logout_route), #logout route
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', CustomRegistrationView.as_view(), name='dj-rest-auth-registration'),
-    path('verify-email/<str:key>/', VerifyEmailView.as_view(), name='verify_email'),
     path('accounts/', include('allauth.urls')),   
     path('', include('profiles.urls')),
     path('', include('recipes.urls')),
