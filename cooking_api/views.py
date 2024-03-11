@@ -10,14 +10,16 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from django.http import HttpResponse
-from allauth.account.models import EmailConfirmation
 from django.http import HttpRequest
 from django.contrib import messages
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from allauth.account.models import EmailAddress
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views import View
+from allauth.account.models import EmailConfirmation
 
 class CustomRegistrationView(RegisterView):
     def create(self, request, *args, **kwargs):
@@ -36,18 +38,19 @@ class CustomRegistrationView(RegisterView):
         return response
     
 
-class VerifyEmailView(APIView):
+
+
+class VerifyEmailView(View):
     def get(self, request, key):
-        try:
-            email_address = EmailAddress.objects.get(confirmation_key=key)
-            if not email_address.verified:
-                email_address.verified = True
-                email_address.save()
-                return Response({'success': True}, status=status.HTTP_200_OK)
-            else:
-                return Response({'success': False, 'message': 'Email address already verified.'}, status=status.HTTP_400_BAD_REQUEST)
-        except EmailAddress.DoesNotExist:
-            return Response({'success': False, 'message': 'Invalid verification key.'}, status=status.HTTP_400_BAD_REQUEST)
+        email_confirmation = get_object_or_404(EmailConfirmation, key=key)
+        email_address = email_confirmation.email_address
+        if not email_address.verified:
+            email_address.verified = True
+            email_address.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'message': 'Email address already verified.'})
+
 
 
 
