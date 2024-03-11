@@ -206,18 +206,12 @@ WSGI_APPLICATION = 'cooking_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-#DEV = os.environ.get('ENABLE_LOCAL_DB', False)
+DEV = os.environ.get('ENABLE_LOCAL_DB', False)
 
-#DATABASES = {
-#            'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-#    }
-    
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+            'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
-}
+    
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
