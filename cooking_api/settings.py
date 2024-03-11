@@ -72,10 +72,6 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'cooking_api.serializers.CurrentUserSerializer'
 }
 
-#Adapter for custom tokens - email verfication
-
-ACCOUNT_ADAPTER = 'cooking_api.adapter.DefaultAccountAdapterCustom'
-URL_FRONT = 'https://cookingaroundtheworld.herokuapp.com/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -142,6 +138,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
+ACCOUNT_EMAIL_CONFIRMATION_URL = 'https://cookingaroundtheworld.herokuapp.com/success/'
 
 # Redirect URL after successful login
 LOGIN_REDIRECT_URL = '/'

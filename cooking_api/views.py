@@ -18,6 +18,9 @@ class CustomRegistrationView(RegisterView):
 
             # Create a profile for the user
             Profile.objects.create(owner=user)
+            
+            # Send email confirmation
+            send_email_confirmation(request, user)
 
         return response
     
