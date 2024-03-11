@@ -124,8 +124,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
     'dj_rest_auth.registration',
     'corsheaders',
     'profiles',
@@ -147,23 +145,6 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 
 # Redirect URL after successful login
 LOGIN_REDIRECT_URL = '/'
-
-# Social account settings
-SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
-SOCIALACCOUNT_EMAIL_REQUIRED = False
-SOCIALACCOUNT_QUERY_EMAIL = True
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': os.environ.get('YOUR_GOOGLE_CLIENT_ID'),
-            'secret': os.environ.get('YOUR_GOOGLE_SECRET_KEY'),
-            'key': '',
-        },
-        'SCOPE': ['profile', 'email'],
-        'AUTH_PARAMS': {'access_type': 'online'},
-    },
-}
 
 # Middleware settings
 
@@ -227,12 +208,18 @@ WSGI_APPLICATION = 'cooking_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DEV = os.environ.get('ENABLE_LOCAL_DB', False)
+#DEV = os.environ.get('ENABLE_LOCAL_DB', False)
 
-DATABASES = {
-            'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
+#DATABASES = {
+#            'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+#    }
     
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
