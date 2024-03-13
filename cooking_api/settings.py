@@ -84,7 +84,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
    os.environ.get('ALLOWED_HOST'),
-   '8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu109.gitpod.io',
+   '8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu110.gitpod.io',
    'cookingapi.herokuapp.com',
 ]
 
@@ -98,7 +98,7 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
         rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
     ]
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu108.gitpod.io/', 'https://cookingapi.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['https://8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu110.gitpod.io/', 'https://cookingapi.herokuapp.com']
     
 CORS_ALLOW_CREDENTIALS = True
 
@@ -170,7 +170,7 @@ CORS_ALLOWED_HEADERS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'https://3000-andreagorsc-cookaroundt-9zz4ntp0gje.ws-eu108.gitpod.io',
+    'https://3000-andreagorsc-cookaroundt-9zz4ntp0gje.ws-eu110.gitpod.io',
 ]
 
 ROOT_URLCONF = 'cooking_api.urls'

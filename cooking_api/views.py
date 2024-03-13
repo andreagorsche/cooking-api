@@ -9,6 +9,8 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from allauth.account.models import EmailAddress
+from allauth.account.models import EmailConfirmation
+
 
 User = get_user_model()
 
@@ -36,7 +38,7 @@ class CustomRegistrationView(RegisterView):
 def verify_email(request, key):
     try:
         # Retrieve the user associated with the email address
-        email_address = EmailAddress.objects.get(activation_key=key)
+        email_confirmation = EmailConfirmation.objects.get(key=key)
         user = email_address.user
         # Mark the email address as verified
         email_address.verified = True

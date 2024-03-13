@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from .models import Profile
+from allauth.account.models import EmailConfirmation
+
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'username', 'email', 'is_active') 
@@ -23,3 +25,4 @@ class ProfileAdmin(admin.ModelAdmin):
 admin.site.unregister(User)
 admin.site.register(User, ProfileAdmin)
 admin.site.register(Profile)
+admin.site.register(EmailConfirmation)
