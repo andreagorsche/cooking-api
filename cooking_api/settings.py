@@ -148,7 +148,7 @@ LOGIN_REDIRECT_URL = '/'
 #Adapter for custom tokens - email verfication
 
 ACCOUNT_ADAPTER = 'cooking_api.adapter.DefaultAccountAdapterCustom'
-URL_FRONT = 'https://cookingaroundtheworld.herokuapp.com/'
+URL_FRONT = 'https://cookingaroundtheworld.herokuapp.com'
 
 # Middleware settings
 
