@@ -20,16 +20,16 @@ def update_inappropriate_comments_count(sender, instance, **kwargs):
 
         # Check if the count exceeds 5 and set the profile as inactive
         if profile.inappropriate_comments_count >= 5:
-        user.is_active = False  # Set the associated user to inactive
-        user.save()
+            user.is_active = False  # Set the associated user to inactive
+            user.save()
 
-        profile.is_active = False  # Set the profile to inactive
-        profile.save()
+            profile.is_active = False  # Set the profile to inactive
+            profile.save()
 
-        # Send an email to the user
-        subject = "Your account has been set as inactive."
-        message = "Oh, no! Due to repeated inappropriate comments (5 or more), your account has been set as inactive."
-        from_email = os.environ.get('EMAIL_HOST_USER')  
-        recipient_list = [user.email]
+            # Send an email to the user
+            subject = "Your account has been set as inactive."
+            message = "Oh, no! Due to repeated inappropriate comments (5 or more), your account has been set as inactive."
+            from_email = os.environ.get('EMAIL_HOST_USER')  
+            recipient_list = [user.email]
 
-        send_mail(subject, message, from_email, recipient_list)
+            send_mail(subject, message, from_email, recipient_list)

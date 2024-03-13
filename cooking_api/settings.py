@@ -84,7 +84,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
    os.environ.get('ALLOWED_HOST'),
-   '8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu108.gitpod.io',
+   '8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu109.gitpod.io',
    'cookingapi.herokuapp.com',
 ]
 
@@ -140,9 +140,15 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 ACCOUNT_EMAIL_CONFIRMATION_URL = 'https://cookingaroundtheworld.herokuapp.com/success/'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = 'True'
 
 # Redirect URL after successful login
 LOGIN_REDIRECT_URL = '/'
+
+#Adapter for custom tokens - email verfication
+
+ACCOUNT_ADAPTER = 'cooking_api.adapter.DefaultAccountAdapterCustom'
+URL_FRONT = 'https://cookingaroundtheworld.herokuapp.com/'
 
 # Middleware settings
 
