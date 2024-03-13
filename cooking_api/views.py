@@ -41,16 +41,12 @@ def verify_email(request, key):
         # Mark the email address as verified
         email_address.verified = True
         email_address.save()
-        # Optionally, mark the user's email as primary
+        # Mark the user's email as primary
         user.email = email_address.email
         user.save()
-        # Optionally, perform any additional actions (e.g., update user profile)
-        # Redirect to a success page or any other page
-        messages.success(request, "Email verified successfully.")
-        return HttpResponseRedirect(reverse('email_verification_success'))
+        return JsonResponse({'message': 'Email verified successfully'}, status=200)
     except EmailAddress.DoesNotExist:
-        messages.error(request, "Invalid activation key.")
-        return HttpResponseRedirect(reverse('email_verification_failure'))
+        return JsonResponse({'error': 'Invalid activation key'}, status=400)
 
 
 @api_view()
