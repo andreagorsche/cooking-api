@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from allauth.account.models import EmailAddress
 from allauth.account.models import EmailConfirmation
-
+from django.http import JsonResponse
 
 User = get_user_model()
 
@@ -39,6 +39,7 @@ def verify_email(request, key):
     try:
         # Retrieve the user associated with the email address
         email_confirmation = EmailConfirmation.objects.get(key=key)
+        email_address = email_confirmation.email_address
         user = email_address.user
         # Mark the email address as verified
         email_address.verified = True
