@@ -2,8 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from cooking_api.constants import CUISINE_CHOICES
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
+
 
 class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -32,8 +31,3 @@ def create_profile(sender, instance, created, **kwargs):
         Profile.objects.create(owner=instance)
 
 post_save.connect(create_profile, sender=User)
-
-@receiver(post_delete, sender=Profile)
-def delete_user(sender, instance, **kwargs):
-    if instance.owner:
-        instance.owner.delete()
