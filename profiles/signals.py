@@ -1,5 +1,6 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
+from django.contrib.auth.models import User
 from .models import Profile
 from comments.models import Comment
 import os
@@ -33,3 +34,15 @@ def update_inappropriate_comments_count(sender, instance, **kwargs):
             recipient_list = [user.email]
 
             send_mail(subject, message, from_email, recipient_list)
+
+@receiver(pre_delete, sender=Profile)
+def deactivate_user(sender, instance, **kwargs):
+    """
+    Signal handler to deactivate associated user when a profile is deleted.
+    """
+    # Retrieve the associated user
+    user = instance.owner
+
+    # Set the user's is_active field to False
+    user.is_active = False
+    user.save()
