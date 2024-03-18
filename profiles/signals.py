@@ -34,15 +34,3 @@ def update_inappropriate_comments_count(sender, instance, **kwargs):
             recipient_list = [user.email]
 
             send_mail(subject, message, from_email, recipient_list)
-
-@receiver(pre_delete, sender=Profile)
-def deactivate_user(sender, instance, **kwargs):
-    """
-    Signal handler to deactivate associated user when a profile is deleted.
-    """
-    # Retrieve the associated user
-    user = instance.owner
-
-    # Set the user's is_active field to False
-    user.is_active = False
-    user.save()
