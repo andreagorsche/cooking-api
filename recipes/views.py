@@ -61,7 +61,7 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     Retrieve recipe, if logged in update and delete your own recipe
     """
     serializer_class = RecipeSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Recipe.objects.all()
 
 class MarkAsSaved(generics.RetrieveUpdateAPIView):
