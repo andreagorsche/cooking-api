@@ -69,7 +69,7 @@ class MarkAsSaved(generics.RetrieveUpdateAPIView):
     Mark a recipe as saved.
     """
     serializer_class = MarkAsSavedSerializer
-    permission_classes = [IsNotOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Recipe.objects.all()
 
     def perform_update(self, serializer, **kwargs):
