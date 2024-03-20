@@ -1,8 +1,11 @@
-from rest_framework import generics, permissions, filters
+from rest_framework import generics, permissions, filters, status
 from django_filters.rest_framework import DjangoFilterBackend
 from cooking_api.permissions import IsOwnerOrReadOnly
 from recipes.models import Recipe
 from recipes.serializers import RecipeSerializer
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
 
 class RecipeList(generics.ListCreateAPIView):
     """
@@ -54,7 +57,7 @@ class RecipeList(generics.ListCreateAPIView):
     """
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-    
+
 
 class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -63,3 +66,18 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RecipeSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Recipe.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        instance = self.get_object()
+        user = request.user
+
+        if instance.saved_by.filter(pk=user.pk).exists():
+            # If the user has already saved the recipe, remove it from saved recipes
+            instance.saved_by.remove(user)
+            saved = False
+        else:
+            # Otherwise, save the recipe for the user
+            instance.saved_by.add(user)
+            saved = True
+
+        return Response({"saved": saved}, status=status.HTTP_200_OK)
