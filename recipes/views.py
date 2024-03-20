@@ -76,7 +76,6 @@ class MarkAsSaved(generics.RetrieveUpdateAPIView):
         recipe = self.get_object()
 
         serializer.instance.saved = True
-        serializer.instance.marked_saved_by = self.request.user
         serializer.save()
 
         return Response({"message": "Recipe marked as saved."}, status=status.HTTP_200_OK)
