@@ -1,11 +1,8 @@
-from rest_framework import generics, permissions, filters, status
+from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from cooking_api.permissions import IsOwnerOrReadOnly
+from cooking_api.permissions import IsOwnerOrReadOnly, IsNotOwnerOrReadOnly
 from recipes.models import Recipe
-from recipes.serializers import RecipeSerializer
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-
+from recipes.serializers import RecipeSerializer, MarkAsSavedSerializer
 
 class RecipeList(generics.ListCreateAPIView):
     """
@@ -57,7 +54,7 @@ class RecipeList(generics.ListCreateAPIView):
     """
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-
+    
 
 class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -67,17 +64,19 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Recipe.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        instance = self.get_object()
-        user = request.user
+class MarkAsSaved(generics.RetrieveUpdateAPIView):
+    """
+    Mark a recipe as saved.
+    """
+    serializer_class = MarkAsSavedSerializer
+    permission_classes = [IsNotOwnerOrReadOnly]
+    queryset = Recipe.objects.all()
 
-        if instance.saved_by.filter(pk=user.pk).exists():
-            # If the user has already saved the recipe, remove it from saved recipes
-            instance.saved_by.remove(user)
-            saved = False
-        else:
-            # Otherwise, save the recipe for the user
-            instance.saved_by.add(user)
-            saved = True
+    def perform_update(self, serializer, **kwargs):
+        recipe = self.get_object()
 
-        return Response({"saved": saved}, status=status.HTTP_200_OK)
+        serializer.instance.saved = True
+        serializer.instance.marked_saved_by = self.request.user
+        serializer.save()
+
+        return Response({"message": "Recipe marked as saved."}, status=status.HTTP_200_OK)

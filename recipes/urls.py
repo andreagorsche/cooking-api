@@ -4,4 +4,5 @@ from recipes import views
 urlpatterns = [
     path('recipes/', views.RecipeList.as_view()),
     path('recipes/<int:pk>/', views.RecipeDetail.as_view()),
+    path('saved/<int:pk>/', views.MarkAsSaved.as_view()),
 ]
