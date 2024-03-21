@@ -66,18 +66,25 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Recipe.objects.all()
 
-class MarkAsSaved(generics.RetrieveUpdateAPIView):
+
+class ToggleSavedStatus(generics.UpdateAPIView):
     """
-    Mark a recipe as saved.
+    Toggle the saved status of a recipe.
     """
-    serializer_class = MarkAsSavedSerializer
+    serializer_class = ToggleSavedStatusSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Recipe.objects.all()
 
     def perform_update(self, serializer, **kwargs):
         recipe = self.get_object()
 
-        serializer.instance.saved = True
+        # Toggle the saved status
+        serializer.instance.saved = not serializer.instance.saved
         serializer.save()
 
-        return Response({"message": "Recipe marked as saved."}, status=status.HTTP_200_OK)
+        if serializer.instance.saved:
+            message = "Recipe marked as saved."
+        else:
+            message = "Recipe marked as unsaved."
+
+        return Response({"message": message}, status=status.HTTP_200_OK)
