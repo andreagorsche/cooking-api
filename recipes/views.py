@@ -1,10 +1,8 @@
-from rest_framework import generics, permissions, filters, status
+from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from cooking_api.permissions import IsOwnerOrReadOnly, IsNotOwnerOrReadOnly
+from cooking_api.permissions import IsOwnerOrReadOnly
 from recipes.models import Recipe
 from recipes.serializers import RecipeSerializer
-from rest_framework.response import Response
-
 
 class RecipeList(generics.ListCreateAPIView):
     """
@@ -20,9 +18,9 @@ class RecipeList(generics.ListCreateAPIView):
     filterset_fields = [
         'owner__followed__owner__profile', # user feed
         'owner__profile', # user posts
-        'cuisine', # posts filtered by cuisine        
+        'cuisine', # posts filtered by cuisine
+        
     ]
-    
     search_fields = [
         'owner__username',
         'title',
@@ -49,6 +47,7 @@ class RecipeList(generics.ListCreateAPIView):
             # Filter recipes that contain any of the specified ingredients
             for ingredient in ingredients_list:
                 queryset = queryset.filter(ingredients__icontains=ingredient)
+        return queryset
   
     """
     Associate the recipe with the logged in chef
