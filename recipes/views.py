@@ -20,10 +20,9 @@ class RecipeList(generics.ListCreateAPIView):
     filterset_fields = [
         'owner__followed__owner__profile', # user feed
         'owner__profile', # user posts
-        'cuisine', # posts filtered by cuisine
-        'saved', # filter by saved status
-        
+        'cuisine', # posts filtered by cuisine        
     ]
+    
     search_fields = [
         'owner__username',
         'title',
@@ -50,11 +49,6 @@ class RecipeList(generics.ListCreateAPIView):
             # Filter recipes that contain any of the specified ingredients
             for ingredient in ingredients_list:
                 queryset = queryset.filter(ingredients__icontains=ingredient)
-        
-        # Filter recipes by saved status for the current user
-        if self.request.user.is_authenticated:
-            queryset = queryset.filter(saved=True, owner=self.request.user)
-        return queryset
   
     """
     Associate the recipe with the logged in chef
