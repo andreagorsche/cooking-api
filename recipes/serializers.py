@@ -34,7 +34,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             'description', 'is_owner', 'saved',
         ]
 
-class MarkAsSavedSerializer(serializers.ModelSerializer):
+class ToggleSavedStatusSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField(source='recipe.id')
     saved = serializers.BooleanField() 
 
