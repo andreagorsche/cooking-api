@@ -33,11 +33,3 @@ class RecipeSerializer(serializers.ModelSerializer):
             'id', 'owner', 'profile_id', 'image', 'created_at', 'updated_at', 'cuisine', 'title', 'ingredients', 'time_effort',
             'description', 'is_owner', 'saved',
         ]
-
-class ToggleSavedStatusSerializer(serializers.ModelSerializer):
-    id = serializers.ReadOnlyField(source='recipe.id')
-    saved = serializers.BooleanField() 
-
-    class Meta:
-        model = Recipe
-        fields = ['id', 'saved']

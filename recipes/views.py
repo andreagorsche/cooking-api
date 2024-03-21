@@ -2,7 +2,7 @@ from rest_framework import generics, permissions, filters, status
 from django_filters.rest_framework import DjangoFilterBackend
 from cooking_api.permissions import IsOwnerOrReadOnly, IsNotOwnerOrReadOnly
 from recipes.models import Recipe
-from recipes.serializers import RecipeSerializer, ToggleSavedStatusSerializer
+from recipes.serializers import RecipeSerializer
 from rest_framework.response import Response
 
 
@@ -64,26 +64,3 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RecipeSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Recipe.objects.all()
-
-
-class ToggleSavedStatus(generics.UpdateAPIView):
-    """
-    Toggle the saved status of a recipe.
-    """
-    serializer_class = ToggleSavedStatusSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Recipe.objects.all()
-
-    def perform_update(self, serializer, **kwargs):
-        recipe = self.get_object()
-
-        # Toggle the saved status
-        serializer.instance.saved = not serializer.instance.saved
-        serializer.save()
-
-        if serializer.instance.saved:
-            message = "Recipe marked as saved."
-        else:
-            message = "Recipe marked as unsaved."
-
-        return Response({"message": message}, status=status.HTTP_200_OK)
