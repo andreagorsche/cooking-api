@@ -9,7 +9,7 @@ class Recipe(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=50, default='')
     cuisine = models.CharField(max_length=13, choices=CUISINE_CHOICES, default='american')
-    time_effort = models.TextField(max_length=20, default="")
+    time_effort = models.CharField(max_length=20, default="")
     ingredients = models.TextField(default="")
     description = models.TextField(default="")
     image = models.ImageField(
