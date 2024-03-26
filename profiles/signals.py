@@ -34,3 +34,6 @@ def update_inappropriate_comments_count(sender, instance, **kwargs):
             recipient_list = [user.email]
 
             send_mail(subject, message, from_email, recipient_list)
+
+            # Return a JSON response indicating that the user is inactive
+            return JsonResponse({'inactive': True, 'inappropriate': True}, status=401)
