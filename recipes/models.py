@@ -15,7 +15,7 @@ class Recipe(models.Model):
     image = models.ImageField(
         upload_to='images/', default=None
     )
-    saved = models.BooleanField(default=False) 
+
 
     class Meta:
         ordering = ['-updated_at']
