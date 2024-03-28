@@ -4,6 +4,7 @@ from cooking_api.permissions import IsOwnerOrReadOnly
 from recipes.models import Recipe
 from recipes.serializers import RecipeSerializer
 
+
 class RecipeList(generics.ListCreateAPIView):
     """
     List all recipes, if logged create your own recipe
@@ -16,10 +17,8 @@ class RecipeList(generics.ListCreateAPIView):
          DjangoFilterBackend,
     ]
     filterset_fields = [
-        'owner__followed__owner__profile', # user feed
-        'owner__profile', # user posts
-        'cuisine', # posts filtered by cuisine
-        
+        'owner__followed__owner__profile',  # user feed
+        'owner__profile',  # user posts        
     ]
     search_fields = [
         'owner__username',

@@ -2,13 +2,14 @@
 
 Welcome,
 
-This is the cooking_api created to serve the front-end application "cooking around the world". The app itself is a social media platform that allows registered users to post recipes, rate and comment recipes of other users and follow other chefs from around the world. The back-end api "cooking-api" is programmed to handle the relevant data of the applications profiles (=chefs), recipes, comments, rating and followers. 
+This is the cooking_api created to serve the front-end application "Cooking-Around-The-World". The app itself is a social media platform that allows registered users to post recipes, rate and comment recipes of other users and follow other chefs from around the world. The back-end api "cooking-api" is programmed to handle the relevant data of the applications profiles (=chefs), recipes, comments, rating and followers. 
 
 # Functionality of the cooking-api
 Similar to a blog api, the cooking-api handles the interaction between user profiles (called chefs) and their posts (called recipes). Logged in chefs can:
 
 * retrieve recipes, comments and other chef profiles
-* like and comment on recipes
+* rate recipes
+* comment recipes
 * follow other chefs
 * filter recipes by special interest (e.g. type of cuisine)
 
@@ -16,14 +17,18 @@ In order the create this functionalities the following apps were created in the 
 * Profiles
 * Recipes
 * Comments
-* Likes
+* Ratings
 * Followers
 
 Each app was set up with according 
 * models representing the database fields
 * serializers to "translate" the code into JSON (for smooth data transion between backend and frontend)
 * views for viewability in ListView and DetailListView
-* and urls to connect everything together 
+* and endpoints to access the specific data and handle it accordingly
+
+# Models
+
+![Welcome](/assets/img/DatabaseModels.png)
 
 # Debugging and Testing
 
