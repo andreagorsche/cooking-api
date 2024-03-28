@@ -6,8 +6,6 @@ class RecipeSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.ReadOnlyField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
-    saved = serializers.BooleanField()
-
 
   
     def validate_image(self, value):
@@ -31,5 +29,5 @@ class RecipeSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = [
             'id', 'owner', 'profile_id', 'image', 'created_at', 'updated_at', 'cuisine', 'title', 'ingredients', 'time_effort',
-            'description', 'is_owner', 'saved',
+            'description', 'is_owner',
         ]
