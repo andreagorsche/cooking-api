@@ -14,10 +14,11 @@ from django.http import JsonResponse
 
 User = get_user_model()
 
+
 class CustomRegistrationView(RegisterView):
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
-        
+
         # Check if 'user' is present in the response data
         user_data = response.data.get('user', None)
 
@@ -27,12 +28,11 @@ class CustomRegistrationView(RegisterView):
 
             # Create a profile for the user
             Profile.objects.create(owner=user)
-            
+  
             # Send email confirmation
             send_email_confirmation(request, user)
 
         return response
-
 
 
 def verify_email(request, key):

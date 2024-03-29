@@ -13,7 +13,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     followers_count = serializers.ReadOnlyField()
     following_count = serializers.ReadOnlyField()
 
-
     def validate_image(self, value):
         if value.size > 1024 * 1024 * 5:
             raise serializers.ValidationError('Image size larger than 2MB!')
@@ -39,12 +38,14 @@ class ProfileSerializer(serializers.ModelSerializer):
             ).first()
             return followed.id if followed else None
         return None
-    
 
     class Meta:
         model = Profile
         fields = [
-            'id', 'owner', 'email', 'created_at', 'updated_at', 'image', 'is_owner', 'followed_id',
-            'recipes_count', 'followers_count', 'following_count', 'inappropriate_comments_count',
+            'id', 'owner', 'email', 'created_at', 'updated_at',
+            'image', 'is_owner', 'followed_id', 'recipes_count', 
+            'followers_count', 'following_count', 
+            'inappropriate_comments_count',
             'is_active', 'bio', 'favorite_cuisine'
         ]
+        

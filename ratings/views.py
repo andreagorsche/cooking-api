@@ -5,13 +5,14 @@ from recipes.models import Recipe
 from .serializers import RatingSerializer
 from rest_framework.exceptions import ValidationError
 
+
 class RatingList(generics.ListCreateAPIView):
     serializer_class = RatingSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    
+
     def get_queryset(self):
         owner = self.request.user
-        return Rating.objects.select_related('recipe').all() # Fetch ratings
+        return Rating.objects.select_related('recipe').all()
 
     def perform_create(self, serializer):
         owner = self.request.user

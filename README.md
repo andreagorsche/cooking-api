@@ -80,6 +80,9 @@ The recipe model handles the data posted by the profiles. Recipe posts consist o
     <br>
 </details>
 
+### Handling image size
+So that recipe images don't take up to much space on the web, the maximum image size is limited by the serializer of the recipe.
+
 ## The Comments Model
 The comments model associates a recipe and the owner of a comment with the according comment stored in the database. 
 <details><summary>COMMENTS Model</summary>
@@ -100,26 +103,33 @@ The rating model handels a 5 star rating that is associated with a specific reci
 
 ## The Followers Model
 
+The followers model handels the user who is followed and the user who follows as well as a creation date of this relation.
+
 <details><summary>FOLLOWERS Model</summary>
     <img src="assets/img/models/Followers.png">
     <br>
 </details>
 
+### Handling Following and Unfollowing
+In contrary to the walkthrough project the unfollowing is not done as a deletion of the following but handled in its own endpoint.
+
 ## Models Relation
+In order to get an overview of the relationships between the different models, the following over was created by me:
 
 ![Models Relation](/assets/img/models/Models.jpg)
 
-# Endpoints
+# Sprint
 
 
-# Alt
 
-#Technology Used
+
+
+# Technology Used
 
 Django REST framework
 This API was build with the 
 
-
+# Alt
 # Debugging and Testing
 
 ## Debugging

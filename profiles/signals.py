@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 if os.path.exists('env.py'):
     import env
 
+
 @receiver(post_save, sender=Comment)
 def update_inappropriate_comments_count(sender, instance, **kwargs):
     user = instance.owner
@@ -29,8 +30,10 @@ def update_inappropriate_comments_count(sender, instance, **kwargs):
 
             # Send an email to the user
             subject = "Your account has been set as inactive."
-            message = "Oh, no! Due to repeated inappropriate comments (5 or more), your account has been set as inactive."
-            from_email = os.environ.get('EMAIL_HOST_USER')  
+            message = "Oh, no! Due to repeated inappropriate comments (5 or more),"
+            "your account has been set as inactive."
+            from_email = os.environ.get('EMAIL_HOST_USER')
             recipient_list = [user.email]
 
             send_mail(subject, message, from_email, recipient_list)
+        

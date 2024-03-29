@@ -15,8 +15,6 @@ class Follower(models.Model):
         User, related_name='followed', on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    
-    
     """
     'unique_together' makes sure a user can't the same user twice.
     """

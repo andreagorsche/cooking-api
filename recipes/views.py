@@ -14,11 +14,11 @@ class RecipeList(generics.ListCreateAPIView):
     queryset = Recipe.objects.all()
     filter_backends = [
         filters.SearchFilter,
-         DjangoFilterBackend,
+        DjangoFilterBackend,
     ]
     filterset_fields = [
         'owner__followed__owner__profile',  # user feed
-        'owner__profile',  # user posts        
+        'owner__profile',  # user posts       
     ]
     search_fields = [
         'owner__username',
@@ -26,7 +26,7 @@ class RecipeList(generics.ListCreateAPIView):
         'description',
         'ingredients',
     ]
-    
+
     """
     order recipes by created_at
     """
@@ -47,13 +47,13 @@ class RecipeList(generics.ListCreateAPIView):
             for ingredient in ingredients_list:
                 queryset = queryset.filter(ingredients__icontains=ingredient)
         return queryset
-  
+
     """
     Associate the recipe with the logged in chef
     """
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-    
+
 
 class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     """

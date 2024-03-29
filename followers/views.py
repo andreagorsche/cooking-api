@@ -3,6 +3,7 @@ from cooking_api.permissions import IsOwnerOrReadOnly
 from .models import Follower
 from .serializers import FollowerSerializer
 
+
 class FollowerList(generics.ListCreateAPIView):
     """
     List all followers, if logged in follow other users
@@ -14,6 +15,7 @@ class FollowerList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class FollowerDetail(generics.RetrieveAPIView):
     """
     If logged in follow a chef
@@ -21,6 +23,7 @@ class FollowerDetail(generics.RetrieveAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = FollowerSerializer
     queryset = Follower.objects.all()
+
 
 class UnfollowUserView(generics.DestroyAPIView):
     """
@@ -33,4 +36,7 @@ class UnfollowUserView(generics.DestroyAPIView):
     def get_queryset(self):
         print("followed_id:", self.kwargs['followed_id'])
     # Filter the queryset based on the authenticated user and the followed user
-        return Follower.objects.filter(owner=self.request.user, followed_id=self.kwargs['followed_id'])
+        return Follower.objects.filter(
+            owner=self.request.user,
+            followed_id=self.kwargs['followed_id']
+            )

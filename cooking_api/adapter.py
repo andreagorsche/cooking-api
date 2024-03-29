@@ -5,7 +5,6 @@ from allauth.account.models import EmailConfirmation
 from allauth.account.models import EmailAddress
 
 
-
 class DefaultAccountAdapterCustom(DefaultAccountAdapter):
     def send_mail(self, template_prefix, email, context):
         # Generate a key or retrieve the key from the context
@@ -15,7 +14,7 @@ class DefaultAccountAdapterCustom(DefaultAccountAdapter):
 
         # Include the activation URL in the context
         context['activate_url'] = f"{settings.URL_FRONT}/verify-email/{key}"
-        
+      
         # Pass the key to create_email_confirmation
         confirmation = create_email_confirmation(email, key)
 
@@ -23,6 +22,7 @@ class DefaultAccountAdapterCustom(DefaultAccountAdapter):
         msg = self.render_mail(template_prefix, email, context)
         # Send the email
         msg.send()
+
 
 def create_email_confirmation(email, key):
     try:

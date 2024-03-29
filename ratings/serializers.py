@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.core.validators import MinValueValidator, MaxValueValidator
 from .models import Rating, Recipe
 
+
 class RatingSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     stars = serializers.IntegerField(
@@ -13,4 +14,4 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ['id', 'owner', 'recipe', 'stars']  
+        fields = ['id', 'owner', 'recipe', 'stars']

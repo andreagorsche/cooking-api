@@ -1,7 +1,11 @@
 from rest_framework import generics, permissions
 from cooking_api.permissions import IsOwnerOrReadOnly, IsNotOwnerOrReadOnly
 from .models import Comment
-from .serializers import CommentSerializer, CommentDetailSerializer, MarkCommentInappropriateSerializer
+from .serializers import (
+    CommentSerializer,
+    CommentDetailSerializer,
+    MarkCommentInappropriateSerializer
+)
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -25,15 +29,22 @@ class CommentList(generics.ListCreateAPIView):
         # Get the recipe_id from the request data
         owner = self.request.user
         recipe_id = self.request.data.get('recipe')
-        content = self.request.data.get('content')        
+        content = self.request.data.get('content')
         # Check if recipe_id exists
         if recipe_id:
             # Save the comment with the associated recipe_id
-            serializer.save(owner=self.request.user, recipe_id=recipe_id)
+            serializer.save(
+                owner=self.request.user,
+                recipe_id=recipe_id
+            )
             return
 
         # If recipe_id is not provided, return an error response
-        return Response({"error": "recipe_id is required"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"error": "recipe_id is required"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -42,6 +53,7 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = CommentDetailSerializer
     queryset = Comment.objects.all()
+
 
 class MarkCommentInappropriate(generics.RetrieveUpdateAPIView):
     """
@@ -54,12 +66,17 @@ class MarkCommentInappropriate(generics.RetrieveUpdateAPIView):
     def perform_update(self, serializer, **kwargs):
         comment = self.get_object()
 
-        # PermissionDenied for comment owner 
+        # PermissionDenied for comment owner
         if comment.owner == self.request.user:
-            raise PermissionDenied("It is not possible to set your own comment to inappropriate. Please delete your comment if you want to remove it.")
-        
+            raise PermissionDenied(
+                "It's not possible to set your own comment to inappropriate."
+                "Please delete your comment if you want to remove it.")
+
         serializer.instance.is_inappropriate = True
         serializer.instance.marked_inappropriate_by = self.request.user
         serializer.save()
 
-        return Response({"message": "Comment marked as inappropriate."}, status=status.HTTP_200_OK)
+        return Response(
+            {"message": "Comment marked as inappropriate."},
+            status=status.HTTP_200_OK
+            )

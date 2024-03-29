@@ -7,7 +7,9 @@ class Comment(models.Model):
     """
     Comment model, related to User and Post
     """
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, 
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
         related_name='comments'
     )
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
@@ -17,8 +19,11 @@ class Comment(models.Model):
     is_inappropriate = models.BooleanField(
         default=False
     )
-    marked_inappropriate_by = models.ForeignKey(User, on_delete=models.SET_NULL, 
-        null=True, blank=True, related_name='marked_comments'
+    marked_inappropriate_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='marked_comments'
     )
 
     class Meta:
@@ -26,4 +31,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
-

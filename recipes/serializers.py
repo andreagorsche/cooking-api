@@ -7,7 +7,6 @@ class RecipeSerializer(serializers.ModelSerializer):
     is_owner = serializers.ReadOnlyField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
 
-  
     def validate_image(self, value):
         if value.size > 1024 * 1024 * 5:
             raise serializers.ValidationError('Image size larger than 2MB!')
@@ -21,13 +20,15 @@ class RecipeSerializer(serializers.ModelSerializer):
             )
         return value
 
-    def get_is_owner (self,obj):
+    def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
-    
+
     class Meta:
         model = Recipe
         fields = [
-            'id', 'owner', 'profile_id', 'image', 'created_at', 'updated_at', 'cuisine', 'title', 'ingredients', 'time_effort',
+            'id', 'owner', 'profile_id', 'image', 
+            'created_at', 'updated_at', 'cuisine', 
+            'title', 'ingredients', 'time_effort',
             'description', 'is_owner',
         ]

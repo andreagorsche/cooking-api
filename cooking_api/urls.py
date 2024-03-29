@@ -1,6 +1,11 @@
 from django.contrib import admin
-from django.urls import path, include 
-from .views import root_route, logout_route, CustomRegistrationView, verify_email
+from django.urls import path, include
+from .views import (
+    root_route, 
+    logout_route, 
+    CustomRegistrationView, 
+    verify_email
+)
 from django.conf.urls import url
 
 urlpatterns = [

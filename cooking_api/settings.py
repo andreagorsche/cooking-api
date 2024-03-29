@@ -11,13 +11,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import os
 import re
 import dj_database_url
 
 if os.path.exists('env.py'):
     import env
-
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -93,12 +92,19 @@ if 'CLIENT_ORIGIN' in os.environ:
          os.environ.get('CLIENT_ORIGIN')
      ]
 if 'CLIENT_ORIGIN_DEV' in os.environ:
-    extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+    extracted_url = re.match(
+        r'^.+-',
+        os.environ.get('CLIENT_ORIGIN_DEV', ''),
+        re.IGNORECASE
+    ).group(0)
     CORS_ALLOWED_ORIGIN_REGEXES = [
         rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
     ]
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu110.gitpod.io/', 'https://cookingapi.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu110.gitpod.io/',
+    'https://cookingapi.herokuapp.com'
+    ]
     
 CORS_ALLOW_CREDENTIALS = True
 

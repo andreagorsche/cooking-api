@@ -12,7 +12,11 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     bio = models.CharField(max_length=200, default="")
-    favorite_cuisine = models.CharField(max_length=13, choices=CUISINE_CHOICES, default='none')
+    favorite_cuisine = models.CharField(
+        max_length=13,
+        choices=CUISINE_CHOICES,
+        default='none'
+        )
     inappropriate_comments_count = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
 
@@ -24,10 +28,14 @@ class Profile(models.Model):
 
     @property
     def owner_profile_image(self):
-        return self.owner.profile.image.url if hasattr(self.owner, 'profile') else None
+        return (self.owner.profile.image.url
+                if hasattr(self.owner, 'profile')
+                else None)
+
 
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(owner=instance)
+
 
 post_save.connect(create_profile, sender=User)
