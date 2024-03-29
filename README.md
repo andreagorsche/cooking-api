@@ -2,9 +2,10 @@
 
 Welcome,
 
-This is the cooking_api created to serve the front-end application "Cooking-Around-The-World". The app itself is a social media platform that allows registered users to post recipes, rate and comment recipes of other users and follow other chefs from around the world. The back-end api "cooking-api" is programmed to handle the relevant data of the applications profiles (=chefs), recipes, comments, rating and followers. 
+to cooking_api - a restful API - created in Django REST framework to serve the front-end application "Cooking-Around-The-World". The app itself is a social media platform that allows registered users to post recipes, rate and comment recipes of other users and follow other chefs from around the world. The back-end api "cooking-api" is programmed to handle the relevant data of the applications profiles (=chefs), recipes, comments, rating and followers. 
 
 # Functionality of the cooking-api
+The API was programmed with the Django REST framework
 Similar to a blog api, the cooking-api handles the interaction between user profiles (called chefs) and their posts (called recipes). Logged in chefs can:
 
 * retrieve recipes, comments and other chef profiles
@@ -21,14 +22,103 @@ In order the create this functionalities the following apps were created in the 
 * Followers
 
 Each app was set up with according 
-* models representing the database fields
-* serializers to "translate" the code into JSON (for smooth data transion between backend and frontend)
-* views for viewability in ListView and DetailListView
-* and endpoints to access the specific data and handle it accordingly
+* models representing the data structure
+* views that handle the logic of processing API requests and returning appropriate API responses
+* serializers to "translate" the code from/to JSON  (for smooth data transion between backend and frontend)
+* urls/endpoints that provide the required paths a client can address to handle requests
 
 # Models
 
-![Welcome](/assets/img/DatabaseModels.png)
+Each app mentioned above has its own data model with according data fields. These models are:
+
+## The Django User Model
+
+The default user model of Django REST framework is used to handle the authentification of a user. This model has a One-to-One relationship with the profile model I created.
+
+<details><summary>USER Model</summary>
+    <img src="assets/img/models/User.png">
+    <br>
+</details>
+
+## The Email Address Model
+The Email Address Model by Django All Auth handles the Email confirmation process. It stores the information whether an existing email address is verified or not in a boolean field.
+
+<details><summary>EMAIL ADDRESS Model</summary>
+    <img src="assets/img/models/EmailAddress.png">
+    <br>
+</details>
+
+## The Email Confirmations Model
+The Email Confirmation Model by Django All Auth supports the Email confirmation process by storing a verification key and matching it with the associated email address. 
+
+<details><summary>EMAIL CONFIRMATIONS Model</summary>
+    <img src="assets/img/models/EmailConfirmations.png">
+    <br>
+</details>
+
+### Custom Adapter for Email verification in the frontend
+One feedback of the last submission was that the user should never interact with the backend application. Since Django all auth handles email verfication in the backend by default, I had to make some custom adaptions. I wrote a custom adapter that generates a frontend email address with the email confirmations key. Upon click of that link the user is redirected to the frontend directly. The key in the url is compared to the key in the email confirmations model. If the keys are identical the email is set to verified in the Email address model.
+
+## The Profiles Model
+
+The profile model is connected to the django user model through the owner data field. Meaning, each authentificated user has one associated profile that the user actively works with in the application. So profiles post recipes, follow other profiles, post comments, rate recipes and so on. This way user authentification and user profiles are seperated from one another. This makes sense in regards to data safety and also in regards to separate data usage.
+
+<details><summary>PROFILES Model</summary>
+    <img src="assets/img/models/Profile.png">
+    <br>
+</details>
+
+### Custom Profile signal for cyber mobbing prevention
+Besides fields like bio, image and favorite cuisine, the profiles model also handles a special feature to confront cyber mobbing. The fields inappropriate_comments_count allows the monitoring of inappropriate comments for each profile. If the limit of 4 inappropriate comments is exceeded the profile and the associated user will be set to inactive via a custom profile signal. 
+
+
+## The Recipes Model
+The recipe model handles the data posted by the profiles. Recipe posts consist of the date they were created/updated to track actuality, a title, a cuisine, time effort, ingredients, description and an image.
+
+<details><summary>RECIPES Model</summary>
+    <img src="assets/img/models/Recipe.png">
+    <br>
+</details>
+
+## The Comments Model
+The comments model associates a recipe and the owner of a comment with the according comment stored in the database. 
+<details><summary>COMMENTS Model</summary>
+    <img src="assets/img/models/Comment.png">
+    <br>
+</details>
+
+### Mark as inappropriate and marked as inappropriate by
+To address cyber mobbing, users can set other users comments to inappropriate - making the comment in question disappear. In the backend the comment is set to mark as inappropriate = true. Additionally it is stored who marked the comment as inappropriate for traceability reasons. This gathered information is important for the profile signal handling deactivation of accounts that are leaving inappropriate comments too often (>=5)
+
+## The Ratings Model
+The rating model handels a 5 star rating that is associated with a specific recipe and rating owner.
+
+<details><summary>RATINGS Model</summary>
+    <img src="assets/img/models/Rating.png">
+    <br>
+</details>
+
+## The Followers Model
+
+<details><summary>FOLLOWERS Model</summary>
+    <img src="assets/img/models/Followers.png">
+    <br>
+</details>
+
+## Models Relation
+
+![Models Relation](/assets/img/models/Models.jpg)
+
+# Endpoints
+
+
+# Alt
+
+#Technology Used
+
+Django REST framework
+This API was build with the 
+
 
 # Debugging and Testing
 
