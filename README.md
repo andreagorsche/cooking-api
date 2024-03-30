@@ -197,6 +197,8 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
 </details>
 
+### Login
+
 **User story: As a registered user I can log in so that I can manage my profile and recipes.**
 
 **Expected Result**: Users can login with their credentials and are given feedback in case the login was unsuccessful.
@@ -209,9 +211,13 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/9_SuccessfulLogin.png">
 </details>
 
+### Login Status
+
 **User story: As a user I can always see if I am logged in or logged out so that I know whether I am capable to use a certain feature with the current status.**
 
 **Comment**: Not applicable for the backend, this is a requirement for the frontend only. Although in the screenshot under Login you can see that the Login is visible on the top right-hand side.
+
+### New Recipe
 
 **User story: As a logged-in user I can post a new recipe so that I can share my unique recipes with the world.**
 
@@ -227,6 +233,8 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/14_RecipeSaved.png">
 </details>
 
+### Recipe Detail
+
 **User story: As a logged-in user I can access the details of a recipe so that I can try it myself.**
 
 **Expected Result**: Recipe Detail View is functional for logged in user.
@@ -240,6 +248,8 @@ All endpoints were tested for the functionality following the comparison of expe
     <br>
     <img src="assets/ManualTesting/17_RecipeDetailPermission3.png">
 </details>
+
+### Rate Recipes
 
 **User story: As a logged-in user I can rate recipes so that I can share my personal experience about other recipes.**
 
@@ -257,6 +267,8 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/32_Ratings.png">
 </details>
 
+### Recipe List
+
 **User story: As a user I can view a list of recipes that were recently added so that I have an overview of the newest, added recipes.**
 
 **Expected Result**: At the recipes endpoint all recipes are listed to view.
@@ -266,6 +278,8 @@ All endpoints were tested for the functionality following the comparison of expe
 <details><summary>Recipe List View</summary>
     <img src="assets/ManualTesting/10_RecipeListView.png">
 </details>
+
+### Search for Recipes
 
 **User story: As a user, I can search for recipes by cuisine(drop down menu), by ingredients, by keywords so that I can find the recipes and chef profiles I am most interested in.**
 
@@ -283,17 +297,21 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
 </details>
 
+### Delete Recipes
+
 **User story: As a logged in user I can delete my own recipes so that I can get rid of information I don't want to share anymore.**
 
 **Expected Result**: At the detail view endpoint I can delete the recipe, if I own it.
 
 **Actual Result**: Works as Expected
 
-<details><summary>Registration</summary>
+<details><summary>Delete Recipes</summary>
     <img src="assets/ManualTesting/2_Registration.png">
     <br>
     <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
 </details>
+
+### Profile Update
 
 **User story: As a logged in user I can access my profile page so that I can manage the information about me.**
 
@@ -301,15 +319,19 @@ All endpoints were tested for the functionality following the comparison of expe
 
 **Actual Result**: Works as Expected
 
-<details><summary>Registration</summary>
+<details><summary>Profile Update</summary>
     <img src="assets/ManualTesting/2_Registration.png">
     <br>
     <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
 </details>
 
+### Fasts Navigation
+
 **User story: As a user I can navigate through pages fast so that I can view content without refreshing the page.**
 
 **Comment**: This is a frontend requirement that can't be tested in the backend.
+
+### Create Comments
 
 **User story: As a logged in user I can create comments so that I can share my thoughts on other chef's recipes.**
 
@@ -323,6 +345,8 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/18_CommentsAdd2.png">
 </details>
 
+### Delete Comments
+
 **User story: As a logged-in user I can delete my own comments so that I have full control over my shared content.**
 
 **Expected Result**: At the comment detail endpoint I can delete the comment, if it is my own.
@@ -335,6 +359,8 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
 </details>
 
+### Mark as Inappropriate
+
 **User story: As a logged-in user I can mark another comment as inappropriate so that I can help keep cyber mobbing and trolling in place.**
 
 **Expected Result**: At the endpoint inappropriate I can mark a comment as inappropriate, if the comment is not my own.
@@ -346,6 +372,8 @@ All endpoints were tested for the functionality following the comparison of expe
     <br>
     <img src="assets/ManualTesting/28MarkAsInappropriate.png">
 </details>
+
+### Follow/Unfollow
 
 **User story: As a logged-in user I can follow and unfollow other chef profiles so that I keep up to date with them.**
 
@@ -367,21 +395,31 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/25_UnfollowEndpoint.png">
 </details>
 
+### Friends Feed
+
 **User story: As a logged-in user I can see a feed of my chef friends recipes so that I can access recipes of chefs I like quick and easy.**
 
 **Comment**: This is a frontend requirement that can't be tested in the backend.
+
+### Own Recipe Feed
 
 **User story: As a logged-in user, I can see a feed of my own posted recipes so that I can easily access and manage these posts easily.**
 
 **Comment**: This is a frontend requirement that can't be tested in the backend.
 
+### Ease-of-Navigation
+
 **User story: As a user, I can navigate through the application intuitively so that I can easily find the features I am looking for.**
 
 **Comment**: This is a frontend requirement that can't be tested in the backend.
 
+### Responsiveness
+
 **User story: As a user, I can access the application from different devices so that I can have a consistent user experience on all devices.**
 
 **Comment**: This is a frontend requirement that can't be tested in the backend.
+
+### User Feedback
 
 **User story: As a user I want to see messages as feedback for my actions within the application so that I can know if my actions were successful.**
 
@@ -397,6 +435,8 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/11_RecipeCreate_ImageHeight_ImageError.png">
 </details>
 
+### Email Confirmation
+
 **User story: As a user I can confirm my registration via email so that my data is save and not used in a way I dont want it to be used (e.g. somebody else registers with my email).**
 
 **Expected Result**: The registration endpoint gives feedback about sent registration email confirmation, the email is shown in the terminal and a link leads to the confirmation flow via the backend.
@@ -410,4 +450,64 @@ All endpoints were tested for the functionality following the comparison of expe
     <br>
     <img src="assets/ManualTesting/5_ConfirmationMail.png">
 </details>
+
+# Deployment
+
+The project was deployed to Heroku. A live version of the API can be found at http://cookingapi.herokuapp.com/.
+
+The necessary steps to deploy the project are:
+
+* Clone or fork the repository. For forking it, go to https://github.com/andreagorsche/cooking-api, click on Fork and follow the instructions. For cloning the repository run **git clone https://github.com/andreagorsche/cooking-api.git** in your terminal.
+
+* Create an account at https://cloudinary.com and get your Cloudinary URL from the dashboard by clicking on the URL under API Environment variable.
+
+* Create a PostgreSQL database, for example at https://www.elephantsql.com/. Create an account and after login in, click on Create new instance and follow the instructions. Click on your newly created database and get the URL from the database details.
+
+* Create an account at https://heroku.com and login. Then, start a new app from the Heroku dashboard by clicking on New and then on Create new app.
+
+    * Give your app an available name and choose your region (US or Europe).
+
+    * After creating your app, go to the Settings tab and click on Reveal Config Vars in the Config Vars section.
+
+    * Add the following config vars:
+
+        Name	Value
+        ALLOWED_HOSTS	<your deployed heroku API app url> *
+        CLIENT_ORIGIN_DEV	<your development environment url> **
+        CLIENT_ORIGIN	<your client url>
+        CLOUDINARY_URL	<Your cloudinary url>
+        DATABASE_URL	<Your database url>
+        DISABLE_COLLECTSTATIC	1
+        SECRET_KEY	<some random string>
+        * Paste the URL without 'https://' or a trailing slash!
+
+** E.g. "http://localhost:3000" for building a React front end app in a local environment. This may differ for your IDE.
+
+    * Click on the Deploy tab and connect the Heroku app to your GitHub repository.
+
+    * Scroll down and choose the branch you want to deploy in the Manual deploy section. Now click on Deploy Branch for the first deployment of the application.
+
+    * After deployment click on View to open your deployed app.
+
+* In case you run into any issues you can access logs by clicking on More and then View logs or you can check the Activity tab for debugging.
+
+# Credits
+
+This project was created based on the Code Institute's Django REST API walkthrough project 'Moments'.
+
+## Additional research and reads
+
+### On Django Signals
+https://docs.djangoproject.com/en/5.0/topics/signals/
+https://www.geeksforgeeks.org/how-to-create-and-use-signals-in-django/
+
+### Setting Up Email Verification
+Send email using Django | How To Send Email With Django | 2024 (https://www.youtube.com/watch?v=iGPPhzhXBFg)
+
+### On Email Verification and custom django adapter
+https://stackoverflow.com/questions/62586150/django-allauth-custom-email-verification-url-does-nothing
+
+
+
+
 
