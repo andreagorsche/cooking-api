@@ -6,6 +6,9 @@ to cooking_api - a restful API - created in Django REST framework to serve the f
 
 # Functionality of the cooking-api
 The API was programmed with the Django REST framework
+
+The user stories I defined for the frontend application "Cook-Around-The-World" where the basis for the functionalities in the backend.
+
 Similar to a blog api, the cooking-api handles the interaction between user profiles (called chefs) and their posts (called recipes). Logged in chefs can:
 
 * retrieve recipes, comments and other chef profiles
@@ -26,6 +29,7 @@ Each app was set up with according
 * views that handle the logic of processing API requests and returning appropriate API responses
 * serializers to "translate" the code from/to JSON  (for smooth data transion between backend and frontend)
 * urls/endpoints that provide the required paths a client can address to handle requests
+
 
 # Models
 
@@ -120,128 +124,290 @@ In order to get an overview of the relationships between the different models, t
 
 # Sprint
 
+For the backend development I had the following weekly sprint plan:
 
+Sprint 1: Creating the basic profile app with urls,views, model and serializer
 
+Sprint 2: Creating the basic recipe app with urls,views, model and serializer
 
+Sprint 3: Creating the basic comments, followers and likes apps with urls, views, model and serializer
+
+Sprint 4: Debugging the Registration and Login functionality (email verification in backend console required)
+
+Sprint 5: Setting up AllAuth Registration and Login functionality
+
+Sprint 6: Delete likes app and add a  rating app, to implement a 5 star rating instead 
+
+Sprint 7: Write signal to handle the inappropriate comments count and trigger the deactivation of profiles based on 5 inappropriate comments or more
+
+Sprint 8: Rewrite default adapter for custom email verification link
+
+Sprint 9: Change settings.py file to meet requirements of custom adapter
+
+Sprint 10: Manual Test of backend functionalities
+
+Sprint 11: Debug the email verification process by managing the email address and email confirmation models of django all auth
+
+Sprint 12: Final round of manual testing, pep 8 style check and documentation
 
 # Technology Used
 
-Django REST framework
-This API was build with the 
+## Languages & Frameworks
+Python
+Django REST Framework
 
-# Alt
-# Debugging and Testing
+## Libraries & Tools
+Cloudinary - to store static files
+django-cloudinary-storage: Using Cloudinary as Django file storage
+Git - Version control system for version control and to push the code to GitHub
+GitHub - used as a remote repository to store project code
+Gitpod - Cloud development environment to host a virtual workspace
+Heroku - Cloud platform to deploy the project into live environment
+Django REST Framework - to build the back-end API
+dj-rest-auth: Advanced DRF authentication 
+Django AllAuth - for the email verification process
+Psycopg2 - used as a PostgreSQL database adapter for Python
+ElephantSQL - ElephantSQL database for deployed projects
+gunicorn: WSGI server used for deployment
+dj-database-url: Django database management
+django-cors-headers: Handle Cross-Origin Resource Sharing in Django
+django-filter: Provides filtering with URL parameters for querysets
+djangorestframework-simplejwt -  extension for Django REST Framework that adds support for JSON Web Tokens (JWT) authentication. 
 
-## Debugging
-With the set up of each app, a debugging took place. Thereby the focus was on fixing bugs that showed in the terminal or in a the browser preview. 
-Central debugging issues included:
+# Testing
 
-### No module profiles found
-After setting up my first app, the profiles app, I had a no module profiles found error.
+## Python Linter
 
-![NoModule found](/assets/img/debugging/Error_nomodulefound.png)
-
-The problem was that I wrote 'Profiles' in the installed Apps and the in the urls.py of the app I wrote views.profiles.as_view()) instead of: 
-path('profiles/', views.ProfileList.as_view())
-
-After fixing those typos everything was running smoothly.
-With the recipes app this error happened to me again. In this case I had by mistake created a serializers file without the .py ending. 
-
-### Operational Error at /recipes/
-Because of the error caused by the serializers file with the missing .py file, I decided to delete the app completely and start from scratch (not seeing that .py was missing with the file name). In that new version of the recipes app I added a new field to the models.py file called "time effort". From then on I couldn't get past the operational error at /recipes. 
-
-![Operational error recipes](/assets/img/debugging/OperationalError_TimeEffort.png)
-
-The reason were migration issues. So I had to delete all previous migrations in all the project apps except for the __init__.py file and migrate once more.
-That solved the issue.
-
+All python code written for the project passes through the PEP 8 python linter with no issues. Except for warnings connected to the migration files. These I did not touch, because I did not want to mess with the database migrations. I double checked with my CI_Mentor, and he said that is ok too. Furthermore I ignore PEP 8 in my env.py file, because it is not shared with any one but me anyway.
 
 ## Manual Testing
-With every finished app in place I did manual testing of the functionalities. The next app was only installed after the app showed no more issues in manual testing.
-The central functionalities tested in the manual tests always took in consideration how the functionality should differ between logged in and logged out user. E.g. logged out users should be able to retrieve the list of profiles, recipes, comments, likes and followers. Only logged in users should be able to post recipes, like and comment them as well as follow other users. In order to test these functionalities 3 superusers and a couple of recipes were created. When creating new recipes I took an extra close look in the data fields and what happens if all of them are filled out or some of them are skipped. Also with the image upload I made sure that the size restrictions were working correctly and the error message was shown properly.
 
-In the manual testing the following issues arose:
+All endpoints were tested for the functionality following the comparison of expected result and actual result.
 
-### Posting recipes in ListView and DetailView
-When working with the get and post methods to put get a deeper understanding of this way of coding, I by mistake had definied the option to post a recipe in the ListView as well as in the DetailView. I managed to fix this by getting rid of the post method in the ListView. When switching to generic views for a cleaner code, this issue did not arise anymore.
+### Registration
+**User story: As a user I can create an account so that I can post recipes, access my profile and follower other users.**
 
-### Likes functionality didn't work
-When starting the likes app I was surprised to only find a button to create a like but no ability to choose which recipe to like (dropdown missing). I had overlooked to add the recipe field in the Meta class. After that the drop down menu showed and was functioning as expected.
+**Expected Result**: A User can register with username, email and password. Users are notified of issues with entered data.
 
-### Recipe Filter didn't work properly
-I had 4 filters set in the views.py file for the recipes:
+**Actual Result**: Works as Expected
 
-* user feed
-* posts a user liked
-* user posts
-* posts filtered by cuisine
+<details><summary>Registration</summary>
+    <img src="assets/ManualTesting/2_Registration.png">
+    <br>
+    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+</details>
 
-The last filter was visible in the manual testing but didn't filter the recipes by cuisine category as expected. It turned out that I had created the wrong filterset (  'recipes__cuisine' instead of 'cuisine'). After fixing this error the filtering worked smoothly.
+**User story: As a registered user I can log in so that I can manage my profile and recipes.**
 
-## Automated Testing
-Automated tests were written to go one step deeper into the debugging process. Bugs found through with automated testing:
+**Expected Result**: Users can login with their credentials and are given feedback in case the login was unsuccessful.
 
-### Assertion Error with test_logged_in_user_can_create_recipe
-When testing if a logged in user could create a recipe I got an unexpected assertion error: 2 != 1. 
+**Actual Result**: Works as Expected
 
-![Assertion error](/assets/img/debugging/assertion.png)
+<details><summary>Login</summary>
+    <img src="assets/ManualTesting/8_UnableToLogin.png">
+    <br>
+    <img src="assets/ManualTesting/9_SuccessfulLogin.png">
+</details>
 
-It took me some time to figure out why 2 recipes were created when there should only be one. 
-The problem was that I had copied the models code of my profiles app into the recipes app and modified the code accordingly. Thereby the createprofile function was adapted into a create recipe function, causing 2 recipes being created in the test altough it should only be one.
-This test turned out to be super useful to find a mistake in my code that I otherwise most likely would have missed.
+**User story: As a user I can always see if I am logged in or logged out so that I know whether I am capable to use a certain feature with the current status.**
 
-### Registration did not work properly
-The error went unnoticed in the backend but showed itself when testing the front end registration. After entering the credintials and press register, nothing appearently happened. When pressing the register button again, it stated that the user already exists - implying that some data was indeed sent and saved. In the front end console it showed a 500 error, so I checked the backend and went to https://8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu105.gitpod.io/dj-rest-auth/registration/. I filled out a test registration in the backend and came across the connection refused error:
+**Comment**: Not applicable for the backend, this is a requirement for the frontend only. Although in the screenshot under Login you can see that the Login is visible on the top right-hand side.
 
-![connection refused error](/assets/img/debugging/ConnectionRefused.png)
+**User story: As a logged-in user I can post a new recipe so that I can share my unique recipes with the world.**
 
-On Stackoverflow the solution presented itself:
-https://stackoverflow.com/questions/72073401/im-trying-to-connect-with-my-heroku-app-and-when-i-enter-my-email-and-password
-https://stackoverflow.com/questions/21563227/django-allauth-example-errno-61-connection-refused
+**Expected Result**: A logged in user can post a recipe.
 
-The problem was that upon successful registration Django tried to send a confirmation email but didn't find the according set up in the settings.py file. To fix the issue I inserted a code line that prints mails to the console.
+**Actual Result**: Works as Expected
 
-# Deployment
+<details><summary>Recipe Post</summary>
+    <img src="assets/ManualTesting/12_RecipeCreate.png">
+    <br>
+    <img src="assets/ManualTesting/13_RecipeCreate.png">
+      <br>
+    <img src="assets/ManualTesting/14_RecipeSaved.png">
+</details>
 
-## Pre-steps
-Before starting the actual deployment the following pre-steps were taken:
-* set up of the JWT tokens
-* add root route to the api
-* add pagination to all list views
-* create a default JSON renderer for production
-* create a date and time formatting for all the created_at and updated_at fields
-    * For posts and profiles following the format date/month/year (with the month beeing a  	
-      Locale’s abbreviation)
-    * for comments and likes following the humanized naturaltime because they are more regularly changed or   created (telling us how long ago a comment was created or updated)
+**User story: As a logged-in user I can access the details of a recipe so that I can try it myself.**
 
-For the deployment of the cooking_api I took the following steps:
-1. create a database through the Elephant SQL service
-2. create a new app in Heroku
-3. deployed a basic frontend in react
-4. added the config vars in Heroku
+**Expected Result**: Recipe Detail View is functional for logged in user.
 
-## Debugging after deployment
-In the deployed backend I had a 400 error and a 500 error. The 400 error could be resolved by adding the url of the preview into the allowed hosts of settings.py.
-The 500 error was an issue with my permissions set in the backend. This also showed in accessing data issues in the frontend. By changing the field of the Profile model from chef to owner, the logic was more clear to me and I could erase the typos I had created in the permissions and views in the Profile and Recipes App.
-Unfortunetely that whole process took me quite long and also lead to the need of deleting my initially generated database. I set up a new SQL Database with Elephant SQl and created a new sqlite database as well. Thus, my testing cases of the manual testing like created profiles and recipes, likes, followers and comments were erased in the process. 
-Since this debugging cost me so much time and was finished not even 24 hours before deadline, I didn't re-test the backend, but moved right into frontend testing -figuring that if the backend was not working properly I would see it when registering users or posting recipes in the front end as well. 
-When adding new data through the frontend I always checked if the data had arrived in the backend (through console.log in the console and manual testing in the deployed backend).
+**Actual Result**: Works as Expected
 
-# Code Updates after first assessment
+<details><summary>Recipe Detail</summary>
+    <img src="assets/ManualTesting/15_RecipeDetailPermission1.png">
+    <br>
+    <img src="assets/ManualTesting/16_RecipeDetailPermission2.png">
+    <br>
+    <img src="assets/ManualTesting/17_RecipeDetailPermission3.png">
+</details>
 
-## Feedback on first submission:
-The codebase contains new fields in the Recipe model but the rest of the models are dependent on the walkthrough project. We need to introduce such customizations that are markedly different from that project. 
-Regarding the readme, it contains the testing and deployment sections. However, we need to include specific test cases and testing steps performed for API manual testing and the deployment section should include the stepwise details for creating, configuring, and deploying the backend application on Heroku.
+**User story: As a logged-in user I can rate recipes so that I can share my personal experience about other recipes.**
 
-## Added customizations
+**Expected Result**: The rating endpoint allows the logged-in user to save a 5 star rating.
 
-In order to distinct this project further from the walkthrough project, I took a critical look at the created apps and made significant adaptions, always having good usability and useful features for the frontend app in mind.
+**Actual Result**: Works as Expected
 
-* The comments can now be marked as inappropriate by other users. I made sure that users can only mark comments as inappropriate if they are not their own. 
+<details><summary>Rating</summary>
+    <img src="assets/ManualTesting/29_Ratings.png">
+    <br>
+    <img src="assets/ManualTesting/30_Ratings.png">
+    <br>
+    <img src="assets/ManualTesting/31_Ratings.png">
+    <br>
+    <img src="assets/ManualTesting/32_Ratings.png">
+</details>
 
-* In the profiles I integrated a counting of inappropriate comment. Users that constantly make inappropriate comments are set to inactive. I set the threshold of inappropriate comments to 5. This logic also requires a profile field that stores if a profile is currently active or not. In order to link the logic of inappropriate comments with the profiles I created signals in the profile app:
-    * checking if the comment is marked as inappropriate
-    * checking if the count exceeds 5 and set the profile as inactive
-    * write an email to the user that the profile was set to inactive
+**User story: As a user I can view a list of recipes that were recently added so that I have an overview of the newest, added recipes.**
 
-* I deleted the like app. Instead I create a rating app that stores user ratings of 0 to 5 stars for each recipe
+**Expected Result**: At the recipes endpoint all recipes are listed to view.
+
+**Actual Result**: Works as Expected
+
+<details><summary>Recipe List View</summary>
+    <img src="assets/ManualTesting/10_RecipeListView.png">
+</details>
+
+**User story: As a user, I can search for recipes by cuisine(drop down menu), by ingredients, by keywords so that I can find the recipes and chef profiles I am most interested in.**
+
+**Comment**: Since the filtering is only visible in the frontend this can't be tested here.
+
+**User story: As a recipe owner I can edit my recipe title, pic, time effort, ingredients and description so that I can make corrections or update my recipe after it was created.**
+
+**Expected Result**: At the recipe detail view I can edit recipes that I own, and save the changes.
+
+**Actual Result**: Works as Expected
+
+<details><summary>Edit Recipe</summary>
+    <img src="assets/ManualTesting/2_Registration.png">
+    <br>
+    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+</details>
+
+**User story: As a logged in user I can delete my own recipes so that I can get rid of information I don't want to share anymore.**
+
+**Expected Result**: At the detail view endpoint I can delete the recipe, if I own it.
+
+**Actual Result**: Works as Expected
+
+<details><summary>Registration</summary>
+    <img src="assets/ManualTesting/2_Registration.png">
+    <br>
+    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+</details>
+
+**User story: As a logged in user I can access my profile page so that I can manage the information about me.**
+
+**Expected Result**: At the profiles endpoint I can update my own profile information.
+
+**Actual Result**: Works as Expected
+
+<details><summary>Registration</summary>
+    <img src="assets/ManualTesting/2_Registration.png">
+    <br>
+    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+</details>
+
+**User story: As a user I can navigate through pages fast so that I can view content without refreshing the page.**
+
+**Comment**: This is a frontend requirement that can't be tested in the backend.
+
+**User story: As a logged in user I can create comments so that I can share my thoughts on other chef's recipes.**
+
+**Expected Result**: At the comments endpoint I can choose a recipe and comment on it.
+
+**Actual Result**: Works as Expected
+
+<details><summary>Add a Comment</summary>
+    <img src="assets/ManualTesting/18_CommentsAdd.png">
+    <br>
+    <img src="assets/ManualTesting/18_CommentsAdd2.png">
+</details>
+
+**User story: As a logged-in user I can delete my own comments so that I have full control over my shared content.**
+
+**Expected Result**: At the comment detail endpoint I can delete the comment, if it is my own.
+
+**Actual Result**: Works as Expected
+
+<details><summary>Delete a Comment</summary>
+    <img src="assets/ManualTesting/2_Registration.png">
+    <br>
+    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+</details>
+
+**User story: As a logged-in user I can mark another comment as inappropriate so that I can help keep cyber mobbing and trolling in place.**
+
+**Expected Result**: At the endpoint inappropriate I can mark a comment as inappropriate, if the comment is not my own.
+
+**Actual Result**: Works as Expected
+
+<details><summary>Mark Comment as Inappropriate</summary>
+    <img src="assets/ManualTesting/27MarkAsInappropriate.png">
+    <br>
+    <img src="assets/ManualTesting/28MarkAsInappropriate.png">
+</details>
+
+**User story: As a logged-in user I can follow and unfollow other chef profiles so that I keep up to date with them.**
+
+**Expected Result**: At the follow endpoint I can follow other users, at the unfollow endpoint I can unfollow other users.
+
+**Actual Result**: Works as Expected
+
+<details><summary>Follow and Unfollow Functionality</summary>
+    <img src="assets/ManualTesting/20_Followers.png">
+    <br>
+    <img src="assets/ManualTesting/21_Followers.png">
+    <br>
+    <img src="assets/ManualTesting/22_FollowersDetailView.png">
+    <br>
+    <img src="assets/ManualTesting/23_UnfollowEndpoint.png">
+    <br>
+    <img src="assets/ManualTesting/24_UnfollowEndpoint.png">
+    <br>
+    <img src="assets/ManualTesting/25_UnfollowEndpoint.png">
+</details>
+
+**User story: As a logged-in user I can see a feed of my chef friends recipes so that I can access recipes of chefs I like quick and easy.**
+
+**Comment**: This is a frontend requirement that can't be tested in the backend.
+
+**User story: As a logged-in user, I can see a feed of my own posted recipes so that I can easily access and manage these posts easily.**
+
+**Comment**: This is a frontend requirement that can't be tested in the backend.
+
+**User story: As a user, I can navigate through the application intuitively so that I can easily find the features I am looking for.**
+
+**Comment**: This is a frontend requirement that can't be tested in the backend.
+
+**User story: As a user, I can access the application from different devices so that I can have a consistent user experience on all devices.**
+
+**Comment**: This is a frontend requirement that can't be tested in the backend.
+
+**User story: As a user I want to see messages as feedback for my actions within the application so that I can know if my actions were successful.**
+
+**Expected Result**: Registration Form, Login Form and Recipe Create Form are giving user feedback on potential data issues (e.g. size of image in recipe creation form)
+
+**Actual Result**: Works as Expected
+
+<details><summary>User Feedback (Backend Implementations)</summary>
+    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+    <br>
+    <img src="assets/ManualTesting/8_UnableToLogin.png">
+     <br>
+    <img src="assets/ManualTesting/11_RecipeCreate_ImageHeight_ImageError.png">
+</details>
+
+**User story: As a user I can confirm my registration via email so that my data is save and not used in a way I dont want it to be used (e.g. somebody else registers with my email).**
+
+**Expected Result**: The registration endpoint gives feedback about sent registration email confirmation, the email is shown in the terminal and a link leads to the confirmation flow via the backend.
+
+**Actual Result**: Works as Expected
+
+<details><summary>Confirmation Mail</summary>
+    <img src="assets/ManualTesting/4_VerificationEmailSent.png">
+    <br>
+    <img src="assets/ManualTesting/5_ConfirmationMailTerminal.png">
+    <br>
+    <img src="assets/ManualTesting/5_ConfirmationMail.png">
+</details>
+
