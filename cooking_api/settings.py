@@ -105,7 +105,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://8000-andreagorsch-cookingapi-m1tec14t6l7.ws-eu110.gitpod.io/',
     'https://cookingapi.herokuapp.com'
     ]
-    
+
 CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
@@ -144,13 +144,15 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
-ACCOUNT_EMAIL_CONFIRMATION_URL = 'https://cookingaroundtheworld.herokuapp.com/success/'
+ACCOUNT_EMAIL_CONFIRMATION_URL = (
+    'https://cookingaroundtheworld.herokuapp.com/success/'
+)
 ACCOUNT_CONFIRM_EMAIL_ON_GET = 'True'
 
 # Redirect URL after successful login
 LOGIN_REDIRECT_URL = '/'
 
-#Adapter for custom tokens - email verfication
+# Adapter for custom tokens - email verfication
 
 ACCOUNT_ADAPTER = 'cooking_api.adapter.DefaultAccountAdapterCustom'
 URL_FRONT = 'https://cookingaroundtheworld.herokuapp.com'
@@ -168,7 +170,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Allowed CORS Headers 
+# Allowed CORS Headers
 
 CORS_ALLOWED_HEADERS = [
     'x-frontend-environment',
@@ -180,11 +182,11 @@ CORS_ORIGIN_WHITELIST = [
 
 ROOT_URLCONF = 'cooking_api.urls'
 
-TEMPLATES = [
+'TEMPLATES': [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-        os.path.join(BASE_DIR, 'allauth', 'templates', 'account', 'email'),
+            os.path.join(BASE_DIR, 'allauth', 'templates', 'account', 'email'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -196,12 +198,7 @@ TEMPLATES = [
             ],
         },
     },
-]
-
-ACCOUNT_EMAIL_TEMPLATES = {
-    'account/email/confirmation_signup_message.txt': 'templates/account/email_register_confirm.txt',
-    'account/email/confirmation_signup_message.html': 'templats/account/email_register_confirm.html',
-}
+],
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -222,7 +219,7 @@ DEV = os.environ.get('ENABLE_LOCAL_DB', False)
 DATABASES = {
             'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
-    
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

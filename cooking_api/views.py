@@ -28,7 +28,7 @@ class CustomRegistrationView(RegisterView):
 
             # Create a profile for the user
             Profile.objects.create(owner=user)
-  
+
             # Send email confirmation
             send_email_confirmation(request, user)
 
@@ -47,7 +47,8 @@ def verify_email(request, key):
         # Mark the user's email as primary
         user.email = email_address.email
         user.save()
-        return JsonResponse({'message': 'Email verified successfully'}, status=200)
+        return JsonResponse({'message': 'Email verified successfully'},
+                    status=200)
     except EmailAddress.DoesNotExist:
         return JsonResponse({'error': 'Invalid activation key'}, status=400)
 

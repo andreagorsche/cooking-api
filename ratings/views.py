@@ -20,12 +20,13 @@ class RatingList(generics.ListCreateAPIView):
         stars = self.request.data.get('stars')
 
         if stars:
-            recipe = Recipe.objects.exclude(owner=self.request.user).get(pk=recipe_id)  # Fetch recipe not owned by the user
+            recipe = Recipe.objects.exclude(owner=self.request.user)\
+                      .get(pk=recipe_id)
             serializer.save(owner=self.request.user, recipe=recipe)
         else:
             raise ValidationError("A star rating is required.")
 
-        
+  
 class RatingDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve a rating, if you are logged in update an owned rating

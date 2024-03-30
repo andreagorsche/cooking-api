@@ -18,7 +18,7 @@ class RecipeList(generics.ListCreateAPIView):
     ]
     filterset_fields = [
         'owner__followed__owner__profile',  # user feed
-        'owner__profile',  # user posts       
+        'owner__profile',  # user posts
     ]
     search_fields = [
         'owner__username',

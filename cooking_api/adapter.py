@@ -14,7 +14,7 @@ class DefaultAccountAdapterCustom(DefaultAccountAdapter):
 
         # Include the activation URL in the context
         context['activate_url'] = f"{settings.URL_FRONT}/verify-email/{key}"
-      
+
         # Pass the key to create_email_confirmation
         confirmation = create_email_confirmation(email, key)
 
