@@ -2,7 +2,7 @@
 
 Welcome,
 
-to cooking_api - a restful API - created in Django REST framework to serve the front-end application "Cooking-Around-The-World". The app itself is a social media platform that allows registered users to post recipes, rate and comment recipes of other users and follow other chefs from around the world. The back-end api "cooking-api" is programmed to handle the relevant data of the applications profiles (=chefs), recipes, comments, rating and followers. 
+to cooking_api - a restful API - created in Django REST framework to serve the front-end application "Cooking-Around-The-World". The app itself is a social media platform that allows registered users to post recipes and comment recipes of other users and follow other chefs from around the world. The back-end api "cooking-api" is programmed to handle the relevant data of the applications profiles (=chefs), recipes, comments and followers. 
 
 # Functionality of the cooking-api
 The API was programmed with the Django REST framework
@@ -12,7 +12,6 @@ The user stories I defined for the frontend application "Cook-Around-The-World" 
 Similar to a blog api, the cooking-api handles the interaction between user profiles (called chefs) and their posts (called recipes). Logged in chefs can:
 
 * retrieve recipes, comments and other chef profiles
-* rate recipes
 * comment recipes
 * follow other chefs
 * filter recipes by special interest (e.g. type of cuisine)
@@ -21,7 +20,6 @@ In order the create this functionalities the following apps were created in the 
 * Profiles
 * Recipes
 * Comments
-* Ratings
 * Followers
 
 Each app was set up with according 
@@ -65,7 +63,7 @@ One feedback of the last submission was that the user should never interact with
 
 ## The Profiles Model
 
-The profile model is connected to the django user model through the owner data field. Meaning, each authentificated user has one associated profile that the user actively works with in the application. So profiles post recipes, follow other profiles, post comments, rate recipes and so on. This way user authentification and user profiles are seperated from one another. This makes sense in regards to data safety and also in regards to separate data usage.
+The profile model is connected to the django user model through the owner data field. Meaning, each authentificated user has one associated profile that the user actively works with in the application. So profiles post recipes, follow other profiles, post comments and so on. This way user authentification and user profiles are seperated from one another. This makes sense in regards to data safety and also in regards to separate data usage.
 
 <details><summary>PROFILES Model</summary>
     <img src="assets/img/models/Profile.png">
@@ -96,14 +94,6 @@ The comments model associates a recipe and the owner of a comment with the accor
 
 ### Mark as inappropriate and marked as inappropriate by
 To address cyber mobbing, users can set other users comments to inappropriate - making the comment in question disappear. In the backend the comment is set to mark as inappropriate = true. Additionally it is stored who marked the comment as inappropriate for traceability reasons. This gathered information is important for the profile signal handling deactivation of accounts that are leaving inappropriate comments too often (>=5)
-
-## The Ratings Model
-The rating model handels a 5 star rating that is associated with a specific recipe and rating owner.
-
-<details><summary>RATINGS Model</summary>
-    <img src="assets/img/models/Rating.png">
-    <br>
-</details>
 
 ## The Followers Model
 
@@ -136,7 +126,7 @@ Sprint 4: Debugging the Registration and Login functionality (email verification
 
 Sprint 5: Setting up AllAuth Registration and Login functionality
 
-Sprint 6: Delete likes app and add a  rating app, to implement a 5 star rating instead 
+Sprint 6: Delete likes app and add a rating app, to implement a 5 star rating instead 
 
 Sprint 7: Write signal to handle the inappropriate comments count and trigger the deactivation of profiles based on 5 inappropriate comments or more
 
@@ -148,7 +138,7 @@ Sprint 10: Manual Test of backend functionalities
 
 Sprint 11: Debug the email verification process by managing the email address and email confirmation models of django all auth
 
-Sprint 12: Final round of manual testing, pep 8 style check and documentation
+Sprint 12: Final round of manual testing, pep 8 style check and documentation, delete of rating app due to time constraints
 
 # Technology Used
 
@@ -247,24 +237,6 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/16_RecipeDetailPermission2.png">
     <br>
     <img src="assets/ManualTesting/17_RecipeDetailPermission3.png">
-</details>
-
-### Rate Recipes
-
-**User story: As a logged-in user I can rate recipes so that I can share my personal experience about other recipes.**
-
-**Expected Result**: The rating endpoint allows the logged-in user to save a 5 star rating.
-
-**Actual Result**: Works as Expected
-
-<details><summary>Rating</summary>
-    <img src="assets/ManualTesting/29_Ratings.png">
-    <br>
-    <img src="assets/ManualTesting/30_Ratings.png">
-    <br>
-    <img src="assets/ManualTesting/31_Ratings.png">
-    <br>
-    <img src="assets/ManualTesting/32_Ratings.png">
 </details>
 
 ### Recipe List
