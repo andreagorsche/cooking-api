@@ -37,19 +37,16 @@ class RecipeList(generics.ListCreateAPIView):
     Filter specific ingredients
     """
     def get_queryset(self):
-        queryset = super().get_queryset()
-        
         # Check if 'ingredients' query parameter is provided
         ingredients_var = self.request.query_params.get('ingredients')
-        
+        queryset = Recipe.objects.all()
+
         if ingredients_var:
-            # Split the ingredients into a list of value-label pairs
-            ingredients_list = [pair.split(':') for pair in ingredients_var.split(',')]
-            
+            # Split the ingredients into a list
+            ingredients_list = ingredients_var.split(',')
             # Filter recipes that contain any of the specified ingredients
-            for value, label in ingredients_list:
-                queryset = queryset.filter(ingredients__value=value)
-  
+            for ingredient in ingredients_list:
+                queryset = queryset.filter(ingredients__icontains=ingredient)
         return queryset
 
     """
