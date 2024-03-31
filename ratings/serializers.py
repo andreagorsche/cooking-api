@@ -11,7 +11,13 @@ class RatingSerializer(serializers.ModelSerializer):
             MaxValueValidator(5, message="Rating should be at most 5.")
         ]
     )
+    average_rating = serializers.SerializerMethodField()
+
+    def get_average_rating(self, rating):
+        queryset = Rating.objects.filter(recipe=rating.recipe)
+        average_rating = queryset.aggregate(Avg('stars'))['stars__avg']
+        return round(average_rating, 1) if average_rating is not None else 0
 
     class Meta:
         model = Rating
-        fields = ['id', 'owner', 'recipe', 'stars']
+        fields = ['id', 'owner', 'recipe', 'stars', 'average_rating']
