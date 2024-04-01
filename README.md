@@ -4,6 +4,26 @@ Welcome,
 
 to cooking_api - a restful API - created in Django REST framework to serve the front-end application "Cooking-Around-The-World". The app itself is a social media platform that allows registered users to post recipes and comment recipes of other users and follow other chefs from around the world. The back-end api "cooking-api" is programmed to handle the relevant data of the applications profiles (=chefs), recipes, comments and followers. 
 
+
+## Table of Contents
+1. [Functionality of the cooking-api](#functionality-of-the-cooking-api)
+2. [Models](#models)
+    1. [The Django User Model](#the-django-user-model)
+    2. [The Email Address Model](#the-email-address-model)
+    3. [The Email Confirmations Model](#the-email-confirmations-model)
+    4. [The Profiles Model](#the-profiles-model)
+    5. [The Recipes Model](#the-recipes-model)
+    6. [The Comments Model](#the-comments-model)
+    7. [The Followers Model](#the-followers-model)
+    8. [Models Relation](#models-relation)
+3. [Sprint](#Sprint)
+4. [Technologies Used](#technologies-used)
+3. [Testing](#testing)
+    1. [Python Linter](#python-linter)
+    2. [Manual Testing](#manual-testing)
+4. [Deployment](#deployment)
+5. [Credits](#credits)
+
 # Functionality of the cooking-api
 The API was programmed with the Django REST framework
 
@@ -182,9 +202,9 @@ All endpoints were tested for the functionality following the comparison of expe
 **Actual Result**: Works as Expected
 
 <details><summary>Registration</summary>
-    <img src="assets/ManualTesting/2_Registration.png">
+    <img src="assets/ManualTesting/11_Registration.png">
     <br>
-    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+    <img src="assets/ManualTesting/12_Registration.png">
 </details>
 
 ### Login
@@ -216,11 +236,11 @@ All endpoints were tested for the functionality following the comparison of expe
 **Actual Result**: Works as Expected
 
 <details><summary>Recipe Post</summary>
-    <img src="assets/ManualTesting/12_RecipeCreate.png">
+    <img src="assets/ManualTesting/123_RecipePost_1.png">
     <br>
-    <img src="assets/ManualTesting/13_RecipeCreate.png">
+    <img src="assets/ManualTesting/123_RecipePost_2.png">
       <br>
-    <img src="assets/ManualTesting/14_RecipeSaved.png">
+    <img src="assets/ManualTesting/123_RecipePost_3.png">
 </details>
 
 ### Recipe Detail
@@ -232,11 +252,7 @@ All endpoints were tested for the functionality following the comparison of expe
 **Actual Result**: Works as Expected
 
 <details><summary>Recipe Detail</summary>
-    <img src="assets/ManualTesting/15_RecipeDetailPermission1.png">
-    <br>
-    <img src="assets/ManualTesting/16_RecipeDetailPermission2.png">
-    <br>
-    <img src="assets/ManualTesting/17_RecipeDetailPermission3.png">
+    <img src="assets/ManualTesting/123_RecipeDetail.png">
 </details>
 
 ### Recipe List
@@ -248,7 +264,7 @@ All endpoints were tested for the functionality following the comparison of expe
 **Actual Result**: Works as Expected
 
 <details><summary>Recipe List View</summary>
-    <img src="assets/ManualTesting/10_RecipeListView.png">
+    <img src="assets/ManualTesting/123_RecipeList.png">
 </details>
 
 ### Search for Recipes
@@ -264,9 +280,9 @@ All endpoints were tested for the functionality following the comparison of expe
 **Actual Result**: Works as Expected
 
 <details><summary>Edit Recipe</summary>
-    <img src="assets/ManualTesting/2_Registration.png">
+    <img src="assets/ManualTesting/123_RecipeUpdate1.png">
     <br>
-    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+    <img src="assets/ManualTesting/124_RecipeUpdate2.png">
 </details>
 
 ### Delete Recipes
@@ -278,9 +294,9 @@ All endpoints were tested for the functionality following the comparison of expe
 **Actual Result**: Works as Expected
 
 <details><summary>Delete Recipes</summary>
-    <img src="assets/ManualTesting/2_Registration.png">
+    <img src="assets/ManualTesting/13_DeleteRecipe.png">
     <br>
-    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+    <img src="assets/ManualTesting/14_DeleteRecipe.png">
 </details>
 
 ### Profile Update
@@ -292,9 +308,9 @@ All endpoints were tested for the functionality following the comparison of expe
 **Actual Result**: Works as Expected
 
 <details><summary>Profile Update</summary>
-    <img src="assets/ManualTesting/2_Registration.png">
+    <img src="assets/ManualTesting/11_UpdateProfile.png">
     <br>
-    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+    <img src="assets/ManualTesting/12_UpdateProfile.png">
 </details>
 
 ### Fasts Navigation
@@ -326,9 +342,11 @@ All endpoints were tested for the functionality following the comparison of expe
 **Actual Result**: Works as Expected
 
 <details><summary>Delete a Comment</summary>
-    <img src="assets/ManualTesting/2_Registration.png">
+    <img src="assets/ManualTesting/1_DeleteComment.png">
     <br>
-    <img src="assets/ManualTesting/3_Registration_UserNotifications.png">
+    <img src="assets/ManualTesting/2_DeleteComment.png">
+    <br>
+     <img src="assets/ManualTesting/3_DeleteComment.png">
 </details>
 
 ### Mark as Inappropriate
@@ -367,17 +385,6 @@ All endpoints were tested for the functionality following the comparison of expe
     <img src="assets/ManualTesting/25_UnfollowEndpoint.png">
 </details>
 
-### Friends Feed
-
-**User story: As a logged-in user I can see a feed of my chef friends recipes so that I can access recipes of chefs I like quick and easy.**
-
-**Comment**: This is a frontend requirement that can't be tested in the backend.
-
-### Own Recipe Feed
-
-**User story: As a logged-in user, I can see a feed of my own posted recipes so that I can easily access and manage these posts easily.**
-
-**Comment**: This is a frontend requirement that can't be tested in the backend.
 
 ### Ease-of-Navigation
 
@@ -416,11 +423,11 @@ All endpoints were tested for the functionality following the comparison of expe
 **Actual Result**: Works as Expected
 
 <details><summary>Confirmation Mail</summary>
-    <img src="assets/ManualTesting/4_VerificationEmailSent.png">
+    <img src="assets/ManualTesting/4_VerficationEmailSent.png">
     <br>
     <img src="assets/ManualTesting/5_ConfirmationMailTerminal.png">
     <br>
-    <img src="assets/ManualTesting/5_ConfirmationMail.png">
+    <img src="assets/ManualTesting/5_ConfirmationMailTerminal.png">
 </details>
 
 # Deployment
@@ -455,11 +462,11 @@ The necessary steps to deploy the project are:
 
 ** E.g. "http://localhost:3000" for building a React front end app in a local environment. This may differ for your IDE.
 
-    * Click on the Deploy tab and connect the Heroku app to your GitHub repository.
+ * Click on the Deploy tab and connect the Heroku app to your GitHub repository.
 
-    * Scroll down and choose the branch you want to deploy in the Manual deploy section. Now click on Deploy Branch for the first deployment of the application.
+ * Scroll down and choose the branch you want to deploy in the Manual deploy section. Now click on Deploy Branch for the first deployment of the application.
 
-    * After deployment click on View to open your deployed app.
+ * After deployment click on View to open your deployed app.
 
 * In case you run into any issues you can access logs by clicking on More and then View logs or you can check the Activity tab for debugging.
 
