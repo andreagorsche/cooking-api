@@ -27,7 +27,7 @@ to cooking_api - a restful API - created in Django REST framework to serve the f
 # Functionality of the cooking-api
 The API was programmed with the Django REST framework
 
-The user stories I defined for the frontend application "Cook-Around-The-World" where the basis for the functionalities in the backend.
+The user stories I defined for the frontend application "Cook-Around-The-World" where the basis for the functionalities in the backend. See documentation here: https://github.com/andreagorsche/cookaroundtheworld/blob/main/README.md
 
 Similar to a blog api, the cooking-api handles the interaction between user profiles (called chefs) and their posts (called recipes). Logged in chefs can:
 
