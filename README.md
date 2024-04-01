@@ -189,6 +189,7 @@ djangorestframework-simplejwt -  extension for Django REST Framework that adds s
 ## Python Linter
 
 All python code written for the project passes through the PEP 8 python linter with no issues. Except for warnings connected to the migration files. These I did not touch, because I did not want to mess with the database migrations. I double checked with my CI_Mentor, and he said that is ok too. Furthermore I ignore PEP 8 in my env.py file, because it is not shared with any one but me anyway.
+Furthermore some minor errors remain, they are kept because I tried to correct them but somehow the stuck around.
 
 ## Manual Testing
 
